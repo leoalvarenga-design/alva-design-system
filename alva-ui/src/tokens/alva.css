@@ -1,0 +1,445 @@
+/*
+ * ALVA Design System — CSS Custom Properties
+ * Generated from Figma Variables (file: ALVA · zdEc4YhpXo3KFyY3jOtPDc)
+ *
+ * Collections
+ *   primitives  — base values, theme-agnostic (single mode)
+ *   semantic    — aliases onto primitives; light (default) + dark modes
+ *   responsive  — spacing & typography aliases; mobile / tablet / desktop
+ *
+ * Rules applied
+ *   · Tokens under _deprecated/* are excluded entirely.
+ *   · Color floats (0–1) are converted to 8-digit hex (RRGGBB, alpha omitted when 1).
+ *   · FLOAT primitives emit px units (spacing, border, icon sizes).
+ *   · FLOAT responsive/typography emit px units.
+ *   · STRING primitives (font families, weights) emit raw values.
+ *   · Semantic vars reference primitive vars — never hardcode color here.
+ *   · Responsive mobile = default; tablet/desktop overrides via @media.
+ *     (All three modes currently alias identical primitives; breakpoints
+ *      are in place for future responsive updates.)
+ *
+ * Usage: import once at app root.
+ *   import 'alva-ui/src/tokens/alva.css';
+ *   — or —
+ *   @import 'alva-ui/src/tokens/alva.css';
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. PRIMITIVES
+   Source: collection "primitives" · VariableCollectionId:133:120 · mode 133:0
+   Naming: --primitives-<category>-<...>-<scale>
+══════════════════════════════════════════════════════════════════════════ */
+:root {
+
+  /* ── Color: Purple ── */
+  --primitives-color-purple-100: #F6EEFF;
+  --primitives-color-purple-200: #E8D5FE;
+  --primitives-color-purple-300: #D1ACFD;
+  --primitives-color-purple-400: #B982FC;
+  --primitives-color-purple-500: #A259FB;
+  --primitives-color-purple-600: #7A43BC;
+  --primitives-color-purple-700: #512D7E;
+  --primitives-color-purple-800: #29163F;
+
+  /* ── Color: Pink ── */
+  --primitives-color-pink-100: #FEE5FF;
+  --primitives-color-pink-200: #FEBFFF;
+  --primitives-color-pink-300: #FC80FF;
+  --primitives-color-pink-400: #FB40FF;
+  --primitives-color-pink-500: #FA00FF;
+  --primitives-color-pink-600: #BB00BF;
+  --primitives-color-pink-700: #7D0080;
+  --primitives-color-pink-800: #3E0040;
+
+  /* ── Color: Red ── */
+  --primitives-color-red-100: #FFE5E5;
+  --primitives-color-red-200: #FFBFBF;
+  --primitives-color-red-300: #FF8080;
+  --primitives-color-red-400: #FF4040;
+  --primitives-color-red-500: #FF0000;
+  --primitives-color-red-600: #BF0000;
+  --primitives-color-red-700: #800000;
+  --primitives-color-red-800: #400000;
+
+  /* ── Color: Green ── */
+  --primitives-color-green-100: #E7F6E5;
+  --primitives-color-green-200: #B2D8AF;
+  --primitives-color-green-300: #7BC774;
+  --primitives-color-green-400: #44B63A;
+  --primitives-color-green-500: #0DA500;
+  --primitives-color-green-600: #109204;
+  --primitives-color-green-700: #0C6304;
+  --primitives-color-green-800: #074302;
+
+  /* ── Color: Grey ── */
+  --primitives-color-grey-100: #ECEDEE;
+  --primitives-color-grey-200: #D0D1D4;
+  --primitives-color-grey-300: #A1A4AA;
+  --primitives-color-grey-400: #737780;
+  --primitives-color-grey-500: #444955;
+  --primitives-color-grey-600: #333740;
+  --primitives-color-grey-700: #22252B;
+  --primitives-color-grey-800: #111215;
+
+  /* ── Color: Orange ── */
+  --primitives-color-orange-100: #FFF0E5;
+  --primitives-color-orange-200: #FFDABF;
+  --primitives-color-orange-300: #FFB580;
+  --primitives-color-orange-400: #FF9040;
+  --primitives-color-orange-500: #FF6B00;
+  --primitives-color-orange-600: #BF5000;
+  --primitives-color-orange-700: #803600;
+  --primitives-color-orange-800: #401B00;
+
+  /* ── Color: Blue ── */
+  --primitives-color-blue-100: #E5E7FF;
+  --primitives-color-blue-200: #BFC2FF;
+  --primitives-color-blue-300: #8085FF;
+  --primitives-color-blue-400: #4047FF;
+  --primitives-color-blue-500: #000AFF;
+  --primitives-color-blue-600: #0008BF;
+  --primitives-color-blue-700: #000580;
+  --primitives-color-blue-800: #000340;
+
+  /* ── Color: Yellow ── */
+  --primitives-color-yellow-100: #FFFCE5;
+  --primitives-color-yellow-200: #FFF9BF;
+  --primitives-color-yellow-300: #FFF280;
+  --primitives-color-yellow-400: #FFEC40;
+  --primitives-color-yellow-500: #FFE600;
+  --primitives-color-yellow-600: #BFAC00;
+  --primitives-color-yellow-700: #807300;
+  --primitives-color-yellow-800: #403900;
+
+  /* ── Color: Absolute ── */
+  --primitives-color-black: #000000;
+  --primitives-color-white: #FFFFFF;
+
+  /* ── Border: Radius ── */
+  --primitives-border-radius-none: 0px;   /* VariableID:133:232 */
+  --primitives-border-radius-sm:   2px;   /* VariableID:133:233 */
+  --primitives-border-radius-md:   4px;   /* VariableID:133:234 */
+  --primitives-border-radius-lg:   8px;   /* VariableID:133:235 */
+
+  /* ── Border: Width ── */
+  --primitives-border-width-none: 0px;    /* VariableID:133:236 · 0  */
+  --primitives-border-width-sm:   1px;    /* VariableID:133:237 · 1  — used by Button border */
+  --primitives-border-width-md:   2px;    /* VariableID:133:238 · 2  */
+  --primitives-border-width-lg:   4px;    /* VariableID:133:239 · 4  */
+
+  /* ── Spacing ── */
+  --primitives-spacing-0:  0px;    /* VariableID:133:207 */
+  --primitives-spacing-1:  1px;    /* VariableID:133:208 */
+  --primitives-spacing-2:  2px;    /* VariableID:133:209 */
+  --primitives-spacing-4:  4px;    /* VariableID:133:210 */
+  --primitives-spacing-6:  6px;    /* VariableID:133:211 */
+  --primitives-spacing-8:  8px;    /* VariableID:133:212 */
+  --primitives-spacing-12: 12px;   /* VariableID:133:213 */
+  --primitives-spacing-16: 16px;   /* VariableID:133:214 */
+  --primitives-spacing-20: 20px;   /* VariableID:133:215 */
+  --primitives-spacing-24: 24px;   /* VariableID:133:216 */
+  --primitives-spacing-28: 28px;   /* VariableID:133:217 */
+  --primitives-spacing-32: 32px;   /* VariableID:133:218 */
+  --primitives-spacing-36: 36px;   /* VariableID:133:219 */
+  --primitives-spacing-40: 40px;   /* VariableID:133:220 */
+  --primitives-spacing-44: 44px;   /* VariableID:133:221 */
+  --primitives-spacing-48: 48px;   /* VariableID:133:222 */
+  --primitives-spacing-52: 52px;   /* VariableID:133:223 */
+  --primitives-spacing-56: 56px;   /* VariableID:133:224 */
+  --primitives-spacing-60: 60px;   /* VariableID:133:225 */
+  --primitives-spacing-64: 64px;   /* VariableID:133:226 */
+
+  /* ── Typography: Font Family ── */
+  --primitives-typography-font-family-body:    Inter;    /* VariableID:133:227 */
+  --primitives-typography-font-family-heading: Poppins;  /* VariableID:133:228 */
+
+  /* ── Typography: Font Weight (Figma string → CSS numeric) ── */
+  --primitives-typography-font-weight-regular:  400;  /* VariableID:133:229 "Regular"   */
+  --primitives-typography-font-weight-semibold: 600;  /* VariableID:133:230 "Semi Bold" */
+  --primitives-typography-font-weight-bold:     700;  /* VariableID:133:231 "Bold"      */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. SEMANTIC — Light mode (default)
+   Source: collection "semantic" · VariableCollectionId:133:240 · mode 133:1
+   Naming: --semantic-<category>-<group>-<role>-<state>
+   All values are aliases onto primitives — never hardcoded colors.
+══════════════════════════════════════════════════════════════════════════ */
+:root,
+[data-theme="light"] {
+
+  /* ── Text ── */
+  --semantic-text-neutral-heading-default:       var(--primitives-color-grey-700);   /* 133:241 light */
+  --semantic-text-neutral-body-default:          var(--primitives-color-grey-600);   /* 133:242 light */
+  --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-400);   /* 133:243 light */
+  --semantic-text-action-primary-default:        var(--primitives-color-pink-500);   /* 133:244 light */
+  --semantic-text-action-primary-hover:          var(--primitives-color-pink-600);   /* 133:245 light */
+  --semantic-text-action-primary-pressed:        var(--primitives-color-pink-700);   /* 133:246 light */
+  --semantic-text-action-primary-disabled:       var(--primitives-color-grey-400);   /* 133:247 light */
+  --semantic-text-feedback-error-default:        var(--primitives-color-red-500);    /* 133:248 light */
+  --semantic-text-feedback-success-default:      var(--primitives-color-green-500);  /* 133:249 light */
+  --semantic-text-feedback-warning-default:      var(--primitives-color-orange-500); /* 133:250 light */
+  --semantic-text-feedback-information-default:  var(--primitives-color-blue-500);   /* 133:251 light */
+  --semantic-text-on-surface-action-default:     var(--primitives-color-white);      /* 133:252 light */
+  --semantic-text-on-surface-disabled-default:   var(--primitives-color-grey-700);   /* 133:253 light */
+
+  /* ── Surface ── */
+  --semantic-surface-neutral-page-default:            var(--primitives-color-white);       /* 133:254 light */
+  --semantic-surface-neutral-primary-default:         var(--primitives-color-white);       /* 133:255 light */
+  --semantic-surface-neutral-disabled-default:        var(--primitives-color-grey-100);    /* 133:256 light */
+  --semantic-surface-action-primary-default:          var(--primitives-color-pink-500);    /* 133:257 light */
+  --semantic-surface-action-primary-hover:            var(--primitives-color-pink-600);    /* 133:258 light */
+  --semantic-surface-action-primary-pressed:          var(--primitives-color-pink-700);    /* 133:259 light */
+  --semantic-surface-action-primary-disabled:         var(--primitives-color-grey-100);    /* 133:260 light */
+  --semantic-surface-feedback-error-default:          var(--primitives-color-red-100);     /* 133:261 light */
+  --semantic-surface-feedback-success-default:        var(--primitives-color-green-100);   /* 133:262 light */
+  --semantic-surface-feedback-warning-default:        var(--primitives-color-orange-100);  /* 133:263 light */
+  --semantic-surface-feedback-information-default:    var(--primitives-color-blue-100);    /* 133:264 light */
+
+  /* ── Border ── */
+  --semantic-border-neutral-primary-default:       var(--primitives-color-grey-200);    /* 133:265 light */
+  --semantic-border-neutral-secondary-default:     var(--primitives-color-grey-300);    /* 133:266 light */
+  --semantic-border-neutral-disabled-default:      var(--primitives-color-grey-300);    /* 133:267 light */
+  --semantic-border-action-primary-default:        var(--primitives-color-pink-500);    /* 133:268 light */
+  --semantic-border-action-primary-hover:          var(--primitives-color-pink-600);    /* 133:269 light */
+  --semantic-border-action-primary-pressed:        var(--primitives-color-pink-700);    /* 133:270 light */
+  --semantic-border-action-primary-disabled:       var(--primitives-color-grey-300);    /* 133:271 light */
+  --semantic-border-action-primary-focus:          var(--primitives-color-pink-500);    /* 133:292 light */
+  --semantic-border-neutral-primary-focus:         var(--primitives-color-blue-500);    /* 133:293 light */
+  --semantic-border-feedback-error-default:        var(--primitives-color-red-500);     /* 133:272 light */
+  --semantic-border-feedback-success-default:      var(--primitives-color-green-500);   /* 133:273 light */
+  --semantic-border-feedback-warning-default:      var(--primitives-color-orange-500);  /* 133:274 light */
+  --semantic-border-feedback-information-default:  var(--primitives-color-blue-500);    /* 133:275 light */
+
+  /* ── Icon ── */
+  --semantic-icon-neutral-primary-default:      var(--primitives-color-grey-500);    /* 133:277 light */
+  --semantic-icon-neutral-disabled-default:     var(--primitives-color-grey-400);    /* 133:278 light */
+  --semantic-icon-action-primary-default:       var(--primitives-color-pink-500);    /* 133:279 light */
+  --semantic-icon-action-primary-hover:         var(--primitives-color-pink-600);    /* 133:280 light */
+  --semantic-icon-action-primary-pressed:       var(--primitives-color-pink-700);    /* 133:281 light */
+  --semantic-icon-action-primary-disabled:      var(--primitives-color-grey-400);    /* 133:282 light */
+  --semantic-icon-feedback-error-default:       var(--primitives-color-red-500);     /* 133:283 light */
+  --semantic-icon-feedback-success-default:     var(--primitives-color-green-500);   /* 133:284 light */
+  --semantic-icon-feedback-warning-default:     var(--primitives-color-orange-500);  /* 133:285 light */
+  --semantic-icon-feedback-information-default: var(--primitives-color-blue-500);    /* 133:286 light */
+  --semantic-icon-on-surface-action-default:    var(--primitives-color-white);       /* 133:287 light */
+  --semantic-icon-on-surface-disabled-default:  var(--primitives-color-grey-700);    /* 133:288 light */
+  --semantic-icon-size-sm:                      var(--primitives-spacing-16);        /* 133:289 */
+  --semantic-icon-size-md:                      var(--primitives-spacing-20);        /* 133:290 */
+  --semantic-icon-size-lg:                      var(--primitives-spacing-24);        /* 133:291 */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. SEMANTIC — Dark mode
+   Source: collection "semantic" · mode 135:5
+   Activated by [data-theme="dark"] attribute or system preference.
+   [data-theme="dark"] takes explicit precedence over prefers-color-scheme.
+══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+
+    /* ── Text ── */
+    --semantic-text-neutral-heading-default:       var(--primitives-color-grey-100);
+    --semantic-text-neutral-body-default:          var(--primitives-color-grey-200);
+    --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-600);
+    --semantic-text-action-primary-default:        var(--primitives-color-pink-400);
+    --semantic-text-action-primary-hover:          var(--primitives-color-pink-300);
+    --semantic-text-action-primary-pressed:        var(--primitives-color-pink-500);
+    --semantic-text-action-primary-disabled:       var(--primitives-color-grey-600);
+    --semantic-text-feedback-error-default:        var(--primitives-color-red-400);
+    --semantic-text-feedback-success-default:      var(--primitives-color-green-400);
+    --semantic-text-feedback-warning-default:      var(--primitives-color-orange-400);
+    --semantic-text-feedback-information-default:  var(--primitives-color-blue-400);
+    --semantic-text-on-surface-action-default:     var(--primitives-color-grey-800);
+    --semantic-text-on-surface-disabled-default:   var(--primitives-color-grey-400);
+
+    /* ── Surface ── */
+    --semantic-surface-neutral-page-default:            var(--primitives-color-grey-800);
+    --semantic-surface-neutral-primary-default:         var(--primitives-color-grey-600);
+    --semantic-surface-neutral-disabled-default:        var(--primitives-color-grey-700);
+    --semantic-surface-action-primary-default:          var(--primitives-color-pink-400);
+    --semantic-surface-action-primary-hover:            var(--primitives-color-pink-500);
+    --semantic-surface-action-primary-pressed:          var(--primitives-color-pink-600);
+    --semantic-surface-action-primary-disabled:         var(--primitives-color-grey-700);
+    --semantic-surface-feedback-error-default:          var(--primitives-color-red-800);
+    --semantic-surface-feedback-success-default:        var(--primitives-color-green-800);
+    --semantic-surface-feedback-warning-default:        var(--primitives-color-orange-800);
+    --semantic-surface-feedback-information-default:    var(--primitives-color-blue-800);
+
+    /* ── Border ── */
+    --semantic-border-neutral-primary-default:       var(--primitives-color-grey-600);
+    --semantic-border-neutral-secondary-default:     var(--primitives-color-grey-500);
+    --semantic-border-neutral-disabled-default:      var(--primitives-color-grey-600);
+    --semantic-border-action-primary-default:        var(--primitives-color-pink-400);
+    --semantic-border-action-primary-hover:          var(--primitives-color-pink-300);
+    --semantic-border-action-primary-pressed:        var(--primitives-color-pink-500);
+    --semantic-border-action-primary-disabled:       var(--primitives-color-grey-600);
+    --semantic-border-action-primary-focus:          var(--primitives-color-pink-400);
+    --semantic-border-neutral-primary-focus:         var(--primitives-color-blue-400);
+    --semantic-border-feedback-error-default:        var(--primitives-color-red-400);
+    --semantic-border-feedback-success-default:      var(--primitives-color-green-400);
+    --semantic-border-feedback-warning-default:      var(--primitives-color-orange-400);
+    --semantic-border-feedback-information-default:  var(--primitives-color-blue-400);
+
+    /* ── Icon ── */
+    --semantic-icon-neutral-primary-default:      var(--primitives-color-grey-300);
+    --semantic-icon-neutral-disabled-default:     var(--primitives-color-grey-600);
+    --semantic-icon-action-primary-default:       var(--primitives-color-pink-400);
+    --semantic-icon-action-primary-hover:         var(--primitives-color-pink-300);
+    --semantic-icon-action-primary-pressed:       var(--primitives-color-pink-500);
+    --semantic-icon-action-primary-disabled:      var(--primitives-color-grey-600);
+    --semantic-icon-feedback-error-default:       var(--primitives-color-red-400);
+    --semantic-icon-feedback-success-default:     var(--primitives-color-green-400);
+    --semantic-icon-feedback-warning-default:     var(--primitives-color-orange-400);
+    --semantic-icon-feedback-information-default: var(--primitives-color-blue-400);
+    --semantic-icon-on-surface-action-default:    var(--primitives-color-grey-800);
+    --semantic-icon-on-surface-disabled-default:  var(--primitives-color-grey-400);
+  }
+}
+
+[data-theme="dark"] {
+
+  /* ── Text ── */
+  --semantic-text-neutral-heading-default:       var(--primitives-color-grey-100);
+  --semantic-text-neutral-body-default:          var(--primitives-color-grey-200);
+  --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-600);
+  --semantic-text-action-primary-default:        var(--primitives-color-pink-400);
+  --semantic-text-action-primary-hover:          var(--primitives-color-pink-300);
+  --semantic-text-action-primary-pressed:        var(--primitives-color-pink-500);
+  --semantic-text-action-primary-disabled:       var(--primitives-color-grey-600);
+  --semantic-text-feedback-error-default:        var(--primitives-color-red-400);
+  --semantic-text-feedback-success-default:      var(--primitives-color-green-400);
+  --semantic-text-feedback-warning-default:      var(--primitives-color-orange-400);
+  --semantic-text-feedback-information-default:  var(--primitives-color-blue-400);
+  --semantic-text-on-surface-action-default:     var(--primitives-color-grey-800);
+  --semantic-text-on-surface-disabled-default:   var(--primitives-color-grey-400);
+
+  /* ── Surface ── */
+  --semantic-surface-neutral-page-default:            var(--primitives-color-grey-800);
+  --semantic-surface-neutral-primary-default:         var(--primitives-color-grey-600);
+  --semantic-surface-neutral-disabled-default:        var(--primitives-color-grey-700);
+  --semantic-surface-action-primary-default:          var(--primitives-color-pink-400);
+  --semantic-surface-action-primary-hover:            var(--primitives-color-pink-500);
+  --semantic-surface-action-primary-pressed:          var(--primitives-color-pink-600);
+  --semantic-surface-action-primary-disabled:         var(--primitives-color-grey-700);
+  --semantic-surface-feedback-error-default:          var(--primitives-color-red-800);
+  --semantic-surface-feedback-success-default:        var(--primitives-color-green-800);
+  --semantic-surface-feedback-warning-default:        var(--primitives-color-orange-800);
+  --semantic-surface-feedback-information-default:    var(--primitives-color-blue-800);
+
+  /* ── Border ── */
+  --semantic-border-neutral-primary-default:       var(--primitives-color-grey-600);
+  --semantic-border-neutral-secondary-default:     var(--primitives-color-grey-500);
+  --semantic-border-neutral-disabled-default:      var(--primitives-color-grey-600);
+  --semantic-border-action-primary-default:        var(--primitives-color-pink-400);
+  --semantic-border-action-primary-hover:          var(--primitives-color-pink-300);
+  --semantic-border-action-primary-pressed:        var(--primitives-color-pink-500);
+  --semantic-border-action-primary-disabled:       var(--primitives-color-grey-600);
+  --semantic-border-action-primary-focus:          var(--primitives-color-pink-400);
+  --semantic-border-neutral-primary-focus:         var(--primitives-color-blue-400);
+  --semantic-border-feedback-error-default:        var(--primitives-color-red-400);
+  --semantic-border-feedback-success-default:      var(--primitives-color-green-400);
+  --semantic-border-feedback-warning-default:      var(--primitives-color-orange-400);
+  --semantic-border-feedback-information-default:  var(--primitives-color-blue-400);
+
+  /* ── Icon ── */
+  --semantic-icon-neutral-primary-default:      var(--primitives-color-grey-300);
+  --semantic-icon-neutral-disabled-default:     var(--primitives-color-grey-600);
+  --semantic-icon-action-primary-default:       var(--primitives-color-pink-400);
+  --semantic-icon-action-primary-hover:         var(--primitives-color-pink-300);
+  --semantic-icon-action-primary-pressed:       var(--primitives-color-pink-500);
+  --semantic-icon-action-primary-disabled:      var(--primitives-color-grey-600);
+  --semantic-icon-feedback-error-default:       var(--primitives-color-red-400);
+  --semantic-icon-feedback-success-default:     var(--primitives-color-green-400);
+  --semantic-icon-feedback-warning-default:     var(--primitives-color-orange-400);
+  --semantic-icon-feedback-information-default: var(--primitives-color-blue-400);
+  --semantic-icon-on-surface-action-default:    var(--primitives-color-grey-800);
+  --semantic-icon-on-surface-disabled-default:  var(--primitives-color-grey-400);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. RESPONSIVE — Spacing & Typography
+   Source: collection "responsive" · VariableCollectionId:19:2
+   Modes: mobile (133:2) · tablet (133:3) · desktop (133:4)
+   Naming: --responsive-<category>-<scale>
+   Note: All three modes currently alias identical primitive values.
+         Breakpoints are in place for future per-breakpoint updates.
+══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Mobile (default, no media query) ── */
+:root {
+
+  /* Spacing */
+  --responsive-spacing-3xs: var(--primitives-spacing-2);   /* VariableID:133:294 → primitives/spacing/2  */
+  --responsive-spacing-2xs: var(--primitives-spacing-4);   /* VariableID:133:295 → primitives/spacing/4  */
+  --responsive-spacing-xs:  var(--primitives-spacing-8);   /* VariableID:133:296 → primitives/spacing/8  */
+  --responsive-spacing-sm:  var(--primitives-spacing-12);  /* VariableID:133:297 → primitives/spacing/12 */
+  --responsive-spacing-md:  var(--primitives-spacing-16);  /* VariableID:133:298 → primitives/spacing/16 */
+  --responsive-spacing-lg:  var(--primitives-spacing-24);  /* VariableID:133:299 → primitives/spacing/24 */
+  --responsive-spacing-xl:  var(--primitives-spacing-32);  /* VariableID:133:300 → primitives/spacing/32 */
+  --responsive-spacing-2xl: var(--primitives-spacing-48);  /* VariableID:133:301 → primitives/spacing/48 */
+  --responsive-spacing-3xl: var(--primitives-spacing-64);  /* VariableID:133:302 → primitives/spacing/64 */
+
+  /* Typography: Font size */
+  --responsive-typography-fontsize-body-sm: 12px;  /* VariableID:19:4  */
+  --responsive-typography-fontsize-body-md: 16px;  /* VariableID:19:3  */
+  --responsive-typography-fontsize-body-lg: 20px;  /* VariableID:19:5  */
+  --responsive-typography-fontsize-h6:      20px;  /* VariableID:19:6  */
+  --responsive-typography-fontsize-h5:      24px;  /* VariableID:19:7  */
+  --responsive-typography-fontsize-h4:      32px;  /* VariableID:19:8  */
+  --responsive-typography-fontsize-h3:      40px;  /* VariableID:19:9  */
+  --responsive-typography-fontsize-h2:      48px;  /* VariableID:19:10 */
+  --responsive-typography-fontsize-h1:      60px;  /* VariableID:19:11 */
+
+  /* Typography: Line height */
+  --responsive-typography-lineheight-body-sm: 20px;  /* VariableID:19:13 */
+  --responsive-typography-lineheight-body-md: 24px;  /* VariableID:19:12 */
+  --responsive-typography-lineheight-body-lg: 32px;  /* VariableID:19:14 */
+  --responsive-typography-lineheight-h6:      24px;  /* VariableID:19:20 */
+  --responsive-typography-lineheight-h5:      28px;  /* VariableID:19:19 */
+  --responsive-typography-lineheight-h4:      40px;  /* VariableID:19:18 */
+  --responsive-typography-lineheight-h3:      48px;  /* VariableID:19:17 */
+  --responsive-typography-lineheight-h2:      56px;  /* VariableID:19:16 */
+  --responsive-typography-lineheight-h1:      72px;  /* VariableID:19:15 */
+
+  /* Typography: Paragraph spacing */
+  --responsive-typography-paragraph-spacing-body-sm: 16px;  /* VariableID:19:23 */
+  --responsive-typography-paragraph-spacing-body-md: 16px;  /* VariableID:19:22 */
+  --responsive-typography-paragraph-spacing-body-lg: 20px;  /* VariableID:19:24 */
+  --responsive-typography-paragraph-spacing-h6:      24px;  /* VariableID:19:30 */
+  --responsive-typography-paragraph-spacing-h5:      28px;  /* VariableID:19:29 */
+  --responsive-typography-paragraph-spacing-h4:      32px;  /* VariableID:19:28 */
+  --responsive-typography-paragraph-spacing-h3:      36px;  /* VariableID:19:27 */
+  --responsive-typography-paragraph-spacing-h2:      40px;  /* VariableID:19:26 */
+  --responsive-typography-paragraph-spacing-h1:      48px;  /* VariableID:19:25 */
+}
+
+/* ── Tablet (≥ 768px) — currently aliases same primitives as mobile ── */
+@media (min-width: 768px) {
+  :root {
+    --responsive-spacing-3xs: var(--primitives-spacing-2);
+    --responsive-spacing-2xs: var(--primitives-spacing-4);
+    --responsive-spacing-xs:  var(--primitives-spacing-8);
+    --responsive-spacing-sm:  var(--primitives-spacing-12);
+    --responsive-spacing-md:  var(--primitives-spacing-16);
+    --responsive-spacing-lg:  var(--primitives-spacing-24);
+    --responsive-spacing-xl:  var(--primitives-spacing-32);
+    --responsive-spacing-2xl: var(--primitives-spacing-48);
+    --responsive-spacing-3xl: var(--primitives-spacing-64);
+  }
+}
+
+/* ── Desktop (≥ 1280px) — currently aliases same primitives as mobile ── */
+@media (min-width: 1280px) {
+  :root {
+    --responsive-spacing-3xs: var(--primitives-spacing-2);
+    --responsive-spacing-2xs: var(--primitives-spacing-4);
+    --responsive-spacing-xs:  var(--primitives-spacing-8);
+    --responsive-spacing-sm:  var(--primitives-spacing-12);
+    --responsive-spacing-md:  var(--primitives-spacing-16);
+    --responsive-spacing-lg:  var(--primitives-spacing-24);
+    --responsive-spacing-xl:  var(--primitives-spacing-32);
+    --responsive-spacing-2xl: var(--primitives-spacing-48);
+    --responsive-spacing-3xl: var(--primitives-spacing-64);
+  }
+}

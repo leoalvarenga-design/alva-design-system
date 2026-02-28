@@ -1,0 +1,212 @@
+/*
+ * ALVA Button — component styles
+ * Source: Figma component set "Button" (node 192:1625, file zdEc4YhpXo3KFyY3jOtPDc)
+ *
+ * Token mapping per variant × state (Figma variable names → CSS custom properties):
+ *
+ * PRIMARY
+ *   default  bg: semantic/surface/action/primary/default   text+icon: on-surface/action/default
+ *   hover    bg: semantic/surface/action/primary/hover     text+icon: on-surface/action/default
+ *   pressed  bg: semantic/surface/action/primary/pressed   text+icon: on-surface/action/default
+ *   focus    bg: semantic/surface/action/primary/default   border: semantic/border/action/primary/focus
+ *   disabled bg: semantic/surface/neutral/disabled/default text+icon: on-surface/disabled/default
+ *
+ * SECONDARY
+ *   default  bg: none          text: semantic/text/action/primary/default  icon: semantic/icon/action/primary/default
+ *   hover    bg: action/primary/hover  text+icon(text): on-surface/action/default  icon: action/primary/default
+ *   pressed  bg: action/primary/pressed   text: on-surface/action/default  icon: action/primary/default
+ *   focus    bg: none          border: semantic/border/action/primary/focus  text+icon: action/primary/default
+ *   disabled bg: none          text+icon: on-surface/disabled/default
+ *
+ * TERTIARY
+ *   default  bg: none  border: semantic/border/action/primary/default   text+icon: action/primary/default
+ *   hover    bg: action/primary/hover  border: action/primary/hover  text: on-surface/action/default  icon: action/primary/default
+ *   pressed  bg: action/primary/pressed border: action/primary/pressed  text: on-surface/action/default  icon: action/primary/default
+ *   focus    bg: none  border: semantic/border/neutral/primary/focus   text+icon: action/primary/default
+ *   disabled bg: semantic/surface/neutral/disabled/default  border: neutral/disabled/default  text+icon: on-surface/disabled/default
+ *
+ * Icon pattern (mirrors Figma MASK + _COLOR):
+ *   The icon slot sets `color: var(--alva-btn-icon-color)`.
+ *   Icon glyphs use `fill: currentColor` / `stroke: currentColor`.
+ *   This keeps glyph vectors token-free while the parent supplies visible color.
+ *
+ * Requires: alva-ui/src/tokens/alva.css loaded at app root.
+ */
+
+/* ─── Base ─── */
+.alva-button {
+  /* Private tokens — overridden per variant/state below */
+  --alva-btn-bg:           transparent;
+  --alva-btn-text-color:   var(--semantic-text-action-primary-default);
+  --alva-btn-icon-color:   var(--semantic-icon-action-primary-default);
+  --alva-btn-border-color: transparent;
+  --alva-btn-border-width: var(--primitives-border-width-sm);
+
+  /* Layout — matches Figma auto-layout (horizontal, HUG) */
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--responsive-spacing-xs);
+
+  padding-top:    var(--responsive-spacing-sm);
+  padding-bottom: var(--responsive-spacing-sm);
+  padding-left:   var(--responsive-spacing-lg);
+  padding-right:  var(--responsive-spacing-lg);
+
+  border-radius: var(--primitives-border-radius-lg);
+  border-style:  solid;
+  border-width:  var(--alva-btn-border-width);
+  border-color:  var(--alva-btn-border-color);
+  background:    var(--alva-btn-bg);
+  color:         var(--alva-btn-text-color);
+
+  font-family:    var(--primitives-typography-font-family-body);
+  font-size:      var(--responsive-typography-fontsize-body-md);
+  font-weight:    var(--primitives-typography-font-weight-semibold);
+  line-height:    var(--responsive-typography-lineheight-body-md);
+  white-space:    nowrap;
+  text-decoration: none;
+
+  cursor:     pointer;
+  outline:    none;
+  appearance: none;
+  user-select: none;
+
+  /* Smooth state transitions */
+  transition:
+    background-color 120ms ease,
+    border-color     120ms ease,
+    color            120ms ease;
+}
+
+/* ─── Icon slots ─── */
+.alva-button__icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:  var(--semantic-icon-size-md);
+  height: var(--semantic-icon-size-md);
+  /* Color is driven by this property; glyph SVGs use fill/stroke: currentColor */
+  color: var(--alva-btn-icon-color);
+}
+
+.alva-button__icon > * {
+  width:  100%;
+  height: 100%;
+}
+
+/* Center wrapper matches Figma "center-wrapper (FILL, grow=1)" */
+.alva-button__label {
+  flex:       1 1 auto;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   PRIMARY variant
+   (data-variant="Primary")
+═══════════════════════════════════════ */
+.alva-button[data-variant="Primary"] {
+  --alva-btn-bg:          var(--semantic-surface-action-primary-default);
+  --alva-btn-text-color:  var(--semantic-text-on-surface-action-default);
+  --alva-btn-icon-color:  var(--semantic-icon-on-surface-action-default);
+  --alva-btn-border-color: transparent;
+}
+
+.alva-button[data-variant="Primary"]:hover:not(:disabled) {
+  --alva-btn-bg: var(--semantic-surface-action-primary-hover);
+}
+
+.alva-button[data-variant="Primary"]:active:not(:disabled) {
+  --alva-btn-bg: var(--semantic-surface-action-primary-pressed);
+}
+
+.alva-button[data-variant="Primary"]:focus-visible:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-focus);
+}
+
+.alva-button[data-variant="Primary"]:disabled,
+.alva-button[data-variant="Primary"][aria-disabled="true"] {
+  --alva-btn-bg:          var(--semantic-surface-neutral-disabled-default);
+  --alva-btn-text-color:  var(--semantic-text-on-surface-disabled-default);
+  --alva-btn-icon-color:  var(--semantic-icon-on-surface-disabled-default);
+  --alva-btn-border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════
+   SECONDARY variant
+   (data-variant="Secondary")
+═══════════════════════════════════════ */
+.alva-button[data-variant="Secondary"] {
+  --alva-btn-bg:           transparent;
+  --alva-btn-text-color:   var(--semantic-text-action-primary-default);
+  --alva-btn-icon-color:   var(--semantic-icon-action-primary-default);
+  --alva-btn-border-color: transparent;
+}
+
+.alva-button[data-variant="Secondary"]:hover:not(:disabled) {
+  --alva-btn-bg:          var(--semantic-surface-action-primary-hover);
+  --alva-btn-text-color:  var(--semantic-text-on-surface-action-default);
+  /* Note: Figma keeps icon at action/primary/default on Secondary hover — faithful to spec */
+}
+
+.alva-button[data-variant="Secondary"]:active:not(:disabled) {
+  --alva-btn-bg:         var(--semantic-surface-action-primary-pressed);
+  --alva-btn-text-color: var(--semantic-text-on-surface-action-default);
+  /* Note: icon stays at action/primary/default on Secondary pressed — faithful to spec */
+}
+
+.alva-button[data-variant="Secondary"]:focus-visible:not(:disabled) {
+  --alva-btn-bg:           transparent;
+  --alva-btn-border-color: var(--semantic-border-action-primary-focus);
+}
+
+.alva-button[data-variant="Secondary"]:disabled,
+.alva-button[data-variant="Secondary"][aria-disabled="true"] {
+  --alva-btn-bg:           transparent;
+  --alva-btn-text-color:   var(--semantic-text-on-surface-disabled-default);
+  --alva-btn-icon-color:   var(--semantic-icon-on-surface-disabled-default);
+  --alva-btn-border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════
+   TERTIARY variant
+   (data-variant="Tertiary")
+═══════════════════════════════════════ */
+.alva-button[data-variant="Tertiary"] {
+  --alva-btn-bg:           transparent;
+  --alva-btn-text-color:   var(--semantic-text-action-primary-default);
+  --alva-btn-icon-color:   var(--semantic-icon-action-primary-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-default);
+}
+
+.alva-button[data-variant="Tertiary"]:hover:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-hover);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-action-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-hover);
+  /* icon stays at action/primary/default — faithful to Figma spec */
+}
+
+.alva-button[data-variant="Tertiary"]:active:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-pressed);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-action-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-pressed);
+}
+
+.alva-button[data-variant="Tertiary"]:focus-visible:not(:disabled) {
+  --alva-btn-bg:           transparent;
+  /* Tertiary focus uses neutral/primary/focus (blue), not action/primary/focus — faithful to Figma */
+  --alva-btn-border-color: var(--semantic-border-neutral-primary-focus);
+}
+
+.alva-button[data-variant="Tertiary"]:disabled,
+.alva-button[data-variant="Tertiary"][aria-disabled="true"] {
+  --alva-btn-bg:           var(--semantic-surface-neutral-disabled-default);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-disabled-default);
+  --alva-btn-icon-color:   var(--semantic-icon-on-surface-disabled-default);
+  --alva-btn-border-color: var(--semantic-border-neutral-disabled-default);
+  cursor: not-allowed;
+}
