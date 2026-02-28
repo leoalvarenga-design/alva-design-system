@@ -1,0 +1,28 @@
+/* ── ALVA Design System tokens ── */
+@import "alva-ui/src/tokens/alva.css";
+@import "alva-ui/src/button/button.css";
+
+/* ── Tailwind (utility layer) ── */
+@import "tailwindcss";
+
+/* ── Page baseline — driven by ALVA semantic tokens ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--primitives-typography-font-family-body), system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--semantic-surface-neutral-page-default);
+  color: var(--semantic-text-neutral-body-default);
+  min-height: 100dvh;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
