@@ -1,0 +1,71 @@
+/*
+ * ALVA Icon — component styles
+ * Source: Figma component set "Icon" (node 190:691, file zdEc4YhpXo3KFyY3jOtPDc)
+ *
+ * Variant axis  → size: 16 | 20 | 24 (via data-size attribute)
+ * Color source  → CSS `color` property (glyph SVGs use fill="currentColor")
+ *
+ * Figma token for default color: semantic/icon/neutral/primary/default
+ *   → --semantic-icon-neutral-primary-default
+ *
+ * Size tokens (from semantic collection):
+ *   size=16 → --semantic-icon-size-sm   (= --primitives-spacing-16 = 16px)
+ *   size=20 → --semantic-icon-size-md   (= --primitives-spacing-20 = 20px)
+ *   size=24 → --semantic-icon-size-lg   (= --primitives-spacing-24 = 24px)
+ *
+ * Override pattern:
+ *   Set CSS `color` on .alva-icon or any ancestor to change glyph color.
+ *   The --alva-icon-color custom property can be used for scoped overrides:
+ *     .my-context { --alva-icon-color: var(--semantic-icon-action-primary-default); }
+ *
+ * Requires: alva-ui/src/tokens/alva.css loaded at app root.
+ */
+
+/* ─── Base ─── */
+.alva-icon {
+  /*
+   * Default color mirrors Figma: Vector fill bound to
+   * semantic/icon/neutral/primary/default.
+   * --alva-icon-color is a public override API; falls back to the semantic token.
+   */
+  color: var(--alva-icon-color, var(--semantic-icon-neutral-primary-default));
+
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+
+  /* No background, no border — container is transparent */
+  background: transparent;
+  border:     none;
+  padding:    0;
+}
+
+/* ─── Size variants ─── */
+
+/* size=16 → semantic/icon/size/sm */
+.alva-icon[data-size="16"] {
+  width:  var(--semantic-icon-size-sm);
+  height: var(--semantic-icon-size-sm);
+}
+
+/* size=20 → semantic/icon/size/md */
+.alva-icon[data-size="20"] {
+  width:  var(--semantic-icon-size-md);
+  height: var(--semantic-icon-size-md);
+}
+
+/* size=24 → semantic/icon/size/lg */
+.alva-icon[data-size="24"] {
+  width:  var(--semantic-icon-size-lg);
+  height: var(--semantic-icon-size-lg);
+}
+
+/* ─── Glyph fill ─── */
+
+/* Force the immediate child (SVG glyph) to fill the container */
+.alva-icon > * {
+  display: block;
+  width:   100%;
+  height:  100%;
+}

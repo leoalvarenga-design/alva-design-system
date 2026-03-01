@@ -160,6 +160,47 @@ Token naming follows the ALVA convention:
 
 ---
 
+## Icon
+
+Import the CSS once, then use:
+
+```tsx
+import { Icon } from 'alva-ui';
+// import 'alva-ui/src/icon/icon.css'; ← add to app root
+
+// Decorative (aria-hidden, screen-reader skipped)
+<Icon size="20" glyph={<StarSvg />} />
+
+// Meaningful (role="img" + label for screen readers)
+<Icon size="24" glyph={<AlertSvg />} aria-label="Warning" />
+
+// Custom color via CSS custom property
+<span style={{ '--alva-icon-color': 'var(--semantic-icon-action-primary-default)' }}>
+  <Icon size="16" glyph={<CheckSvg />} />
+</span>
+```
+
+SVG glyphs **must** use `fill="currentColor"` — the Icon sets `color` from the semantic token and the glyph inherits it via `currentColor`.
+
+### Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `size` | `'16' \| '20' \| '24'` | `'20'` | Figma "size" variant axis — fixed container |
+| `glyph` | `ReactNode` | — | SVG or element with `fill="currentColor"` |
+| `aria-label` | `string` | — | Meaningful label; omit for decorative icons |
+
+### Color override
+
+Default color: `--semantic-icon-neutral-primary-default`. Override via:
+
+```css
+/* Scoped override via custom property */
+.my-context { --alva-icon-color: var(--semantic-icon-action-primary-default); }
+```
+
+---
+
 ## Rules
 
 - Never hardcode visible colors — always bind to `semantic/*`.
