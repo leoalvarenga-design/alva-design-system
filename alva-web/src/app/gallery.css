@@ -1,0 +1,247 @@
+/*
+ * ALVA UI Gallery — demo-only styles
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Contains:
+ *   1. Page layout  (header, main, sections, sub-sections, cells)
+ *   2. State-forcing CSS — reproduces the same CSS-variable overrides that
+ *      button.css / field.css apply on :hover / :active / :focus-visible,
+ *      but triggered by [data-force-hover|pressed|focus] on a wrapper element.
+ *
+ * None of these rules ship inside alva-ui.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ── Sticky header ─────────────────────────────────────────────────────── */
+
+.gallery-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--responsive-spacing-xl);
+  height: 56px;
+  background: var(--semantic-surface-neutral-page-default);
+  border-bottom: var(--primitives-border-width-sm) solid
+    var(--semantic-border-neutral-primary-default);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.gallery-header__wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: var(--responsive-spacing-xs);
+}
+
+.gallery-header__name {
+  font-family: var(--primitives-typography-font-family-heading);
+  font-size: var(--responsive-typography-fontsize-body-md);
+  font-weight: var(--primitives-typography-font-weight-semibold);
+  color: var(--semantic-text-neutral-heading-default);
+  letter-spacing: -0.01em;
+}
+
+.gallery-header__sub {
+  font-size: var(--responsive-typography-fontsize-body-sm);
+  color: var(--semantic-text-neutral-disabled-default);
+}
+
+/* ── Main container ────────────────────────────────────────────────────── */
+
+.gallery-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--responsive-spacing-xl) var(--responsive-spacing-xl)
+    var(--responsive-spacing-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--responsive-spacing-xl);
+}
+
+/* ── Section ───────────────────────────────────────────────────────────── */
+
+.gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--responsive-spacing-md);
+}
+
+.gallery-section__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--responsive-spacing-xs);
+  padding-bottom: var(--responsive-spacing-xs);
+  border-bottom: var(--primitives-border-width-sm) solid
+    var(--semantic-border-neutral-primary-default);
+}
+
+.gallery-section__title {
+  font-size: var(--responsive-typography-fontsize-body-sm);
+  font-weight: var(--primitives-typography-font-weight-semibold);
+  color: var(--semantic-text-neutral-disabled-default);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.gallery-section__tag {
+  padding: 1px 6px;
+  border-radius: var(--primitives-border-radius-sm);
+  border: var(--primitives-border-width-sm) solid
+    var(--semantic-border-neutral-primary-default);
+  font-family: var(--primitives-typography-font-family-body);
+  font-size: 10px;
+  font-weight: var(--primitives-typography-font-weight-regular);
+  color: var(--semantic-text-neutral-disabled-default);
+}
+
+/* ── Subsection ────────────────────────────────────────────────────────── */
+
+.gallery-sub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--responsive-spacing-xs);
+}
+
+.gallery-sub__label {
+  font-size: var(--responsive-typography-fontsize-body-sm);
+  font-weight: var(--primitives-typography-font-weight-semibold);
+  color: var(--semantic-text-neutral-disabled-default);
+}
+
+/* ── State matrix grid (Button) ────────────────────────────────────────── */
+
+.gallery-matrix {
+  display: grid;
+  gap: var(--responsive-spacing-xs) var(--responsive-spacing-sm);
+  align-items: center;
+}
+
+.gallery-matrix--btn {
+  /* [row-label] [Default] [Hover] [Pressed] [Focus] [Disabled] */
+  grid-template-columns: 72px repeat(5, minmax(100px, auto));
+  justify-content: start;
+}
+
+.gallery-matrix__col-header {
+  font-size: var(--responsive-typography-fontsize-body-sm);
+  font-weight: var(--primitives-typography-font-weight-semibold);
+  color: var(--semantic-text-neutral-disabled-default);
+  text-align: center;
+  padding-bottom: var(--responsive-spacing-2xs);
+}
+
+.gallery-matrix__row-label {
+  font-size: var(--responsive-typography-fontsize-body-sm);
+  color: var(--semantic-text-neutral-disabled-default);
+  white-space: nowrap;
+}
+
+/* ── Flex row (Field statuses, icon combos, Cards) ──────────────────────── */
+
+.gallery-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--responsive-spacing-md);
+  align-items: flex-start;
+}
+
+/* ── State cell — wraps one component + a label below ──────────────────── */
+
+.gallery-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--responsive-spacing-2xs);
+}
+
+.gallery-cell--center {
+  align-items: center;
+}
+
+.gallery-cell__label {
+  font-size: 10px;
+  color: var(--semantic-text-neutral-disabled-default);
+}
+
+/*
+ * Inside the button state matrix, cells should center their child horizontally
+ * so buttons sit in the middle of their equal-width column.
+ */
+.gallery-matrix .gallery-cell {
+  align-items: center;
+  justify-self: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STATE FORCING
+   ───────────────────────────────────────────────────────────────────────────
+   Each block below mirrors the exact CSS custom-property overrides applied
+   by button.css / field.css under :hover, :active, :focus-visible.
+   Triggered by boolean data attributes on a wrapper div, not by interaction.
+   Specificity matches the component's own selectors (one class + one attr).
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Button: Primary ── */
+
+[data-force-hover] .alva-button[data-variant="Primary"]:not(:disabled) {
+  --alva-btn-bg: var(--semantic-surface-action-primary-hover);
+}
+
+[data-force-pressed] .alva-button[data-variant="Primary"]:not(:disabled) {
+  --alva-btn-bg: var(--semantic-surface-action-primary-pressed);
+}
+
+[data-force-focus] .alva-button[data-variant="Primary"]:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-focus);
+}
+
+/* ── Button: Secondary ── */
+
+[data-force-hover] .alva-button[data-variant="Secondary"]:not(:disabled) {
+  --alva-btn-bg:         var(--semantic-surface-action-primary-hover);
+  --alva-btn-text-color: var(--semantic-text-on-surface-action-default);
+}
+
+[data-force-pressed] .alva-button[data-variant="Secondary"]:not(:disabled) {
+  --alva-btn-bg:         var(--semantic-surface-action-primary-pressed);
+  --alva-btn-text-color: var(--semantic-text-on-surface-action-default);
+}
+
+[data-force-focus] .alva-button[data-variant="Secondary"]:not(:disabled) {
+  --alva-btn-border-color: var(--semantic-border-action-primary-focus);
+}
+
+/* ── Button: Tertiary ── */
+
+[data-force-hover] .alva-button[data-variant="Tertiary"]:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-hover);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-action-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-hover);
+}
+
+[data-force-pressed] .alva-button[data-variant="Tertiary"]:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-pressed);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-action-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-pressed);
+}
+
+[data-force-focus] .alva-button[data-variant="Tertiary"]:not(:disabled) {
+  --alva-btn-border-color: var(--semantic-border-neutral-primary-focus);
+}
+
+/* ── Field ── */
+
+[data-force-hover]
+  .alva-field:not([data-status="Error"]):not([data-status="Success"]):not(
+    [data-status="Disabled"]
+  ) {
+  --alva-field-border-color: var(--semantic-border-action-primary-hover);
+  --alva-field-icon-color:   var(--semantic-icon-action-primary-hover);
+}
+
+[data-force-focus] .alva-field:not([data-status="Disabled"]) {
+  --alva-field-border-color: var(--semantic-border-neutral-primary-focus);
+  --alva-field-icon-color:   var(--semantic-icon-neutral-primary-default);
+}

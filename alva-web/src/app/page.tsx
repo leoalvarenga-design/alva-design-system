@@ -1,151 +1,348 @@
-import { Button, Card, Input } from "alva-ui";
+import type { ReactNode } from "react";
+import { Button, Card, Field, Input } from "alva-ui";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
-const Row = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-    <h2 style={{ margin: 0, fontSize: 14, opacity: 0.7 }}>{title}</h2>
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+// ── Glyph icons ─────────────────────────────────────────────────────────────
+
+function SearchIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+    </svg>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 17.3l-6.18 3.7 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.46 4.73 1.64 7.03L12 17.3z" />
+    </svg>
+  );
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M10 17l5-5-5-5v10z" />
+    </svg>
+  );
+}
+
+// ── Gallery helpers ─────────────────────────────────────────────────────────
+
+type ForceState = "hover" | "pressed" | "focus";
+
+/**
+ * Wraps a component and applies [data-force-hover|pressed|focus] so that
+ * gallery.css can override the same CSS custom properties that button.css /
+ * field.css apply on :hover / :active / :focus-visible.
+ */
+function StateCell({
+  state,
+  label,
+  children,
+}: {
+  state?: ForceState;
+  label?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className="gallery-cell"
+      data-force-hover={state === "hover" ? "" : undefined}
+      data-force-pressed={state === "pressed" ? "" : undefined}
+      data-force-focus={state === "focus" ? "" : undefined}
+    >
+      {children}
+      {label && <span className="gallery-cell__label">{label}</span>}
+    </div>
+  );
+}
+
+function SectionHeading({ title, tag }: { title: string; tag: string }) {
+  return (
+    <div className="gallery-section__heading">
+      <span className="gallery-section__title">{title}</span>
+      <code className="gallery-section__tag">{tag}</code>
+    </div>
+  );
+}
+
+function Sub({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="gallery-sub">
+      <span className="gallery-sub__label">{label}</span>
       {children}
     </div>
-  </section>
-);
+  );
+}
 
-const Stack = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-    <h2 style={{ margin: 0, fontSize: 14, opacity: 0.7 }}>{title}</h2>
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      {children}
-    </div>
-  </section>
-);
+// ── Page ─────────────────────────────────────────────────────────────────────
 
-const ArrowLeft = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M14 7l-5 5 5 5V7z" />
-  </svg>
-);
-
-const ArrowRight = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M10 17l5-5-5-5v10z" />
-  </svg>
-);
-
-const Star = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 17.3l-6.18 3.7 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.46 4.73 1.64 7.03L12 17.3z" />
-  </svg>
-);
+const BTN_STATES: Array<{ state?: ForceState; label: string; disabled?: boolean }> = [
+  { label: "Default" },
+  { state: "hover",   label: "Hover" },
+  { state: "pressed", label: "Pressed" },
+  { state: "focus",   label: "Focus" },
+  { label: "Disabled", disabled: true },
+];
 
 export default function Home() {
   return (
-    <main
-      style={{
-        padding: 40,
-        display: "flex",
-        flexDirection: "column",
-        gap: 28,
-        maxWidth: 1100,
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
-        <div>
-          <h1 style={{ margin: 0 }}>ALVA UI Gallery</h1>
-          <p style={{ margin: "6px 0 0", opacity: 0.7 }}>
-            Variants + states + icons + light/dark (via your Theme Switcher)
-          </p>
+    <>
+      {/* ── Sticky header ─────────────────────────────────────────────── */}
+      <header className="gallery-header">
+        <div className="gallery-header__wordmark">
+          <span className="gallery-header__name">ALVA UI</span>
+          <span className="gallery-header__sub">Gallery</span>
         </div>
-        <div style={{ opacity: 0.7, fontSize: 12 }}>
-          Use the ThemeSwitcher (top-right) to toggle light/dark
-        </div>
-      </div>
+        <ThemeSwitcher />
+      </header>
 
-      <Row title="Button • Primary">
-        <Button variant="Primary" label="Default" />
-        <Button variant="Primary" label="Icon left" showIconLeft iconLeftGlyph={<Star />} />
-        <Button
-          variant="Primary"
-          label="With icons"
-          showIconLeft
-          showIconRight
-          iconLeftGlyph={<ArrowLeft />}
-          iconRightGlyph={<ArrowRight />}
-        />
-        <Button variant="Primary" label="Disabled" disabled showIconLeft iconLeftGlyph={<Star />} />
-      </Row>
+      <main className="gallery-main">
 
-      <Row title="Button • Secondary">
-        <Button variant="Secondary" label="Default" />
-        <Button variant="Secondary" label="Icon right" showIconRight iconRightGlyph={<ArrowRight />} />
-        <Button
-          variant="Secondary"
-          label="With icons"
-          showIconLeft
-          showIconRight
-          iconLeftGlyph={<ArrowLeft />}
-          iconRightGlyph={<ArrowRight />}
-        />
-        <Button variant="Secondary" label="Disabled" disabled showIconRight iconRightGlyph={<ArrowRight />} />
-      </Row>
+        {/* ═══════════════════════ BUTTON ═══════════════════════ */}
+        <section className="gallery-section">
+          <SectionHeading title="Button" tag="<Button />" />
 
-      <Row title="Button • Tertiary">
-        <Button variant="Tertiary" label="Default" />
-        <Button variant="Tertiary" label="Icon left" showIconLeft iconLeftGlyph={<Star />} />
-        <Button
-          variant="Tertiary"
-          label="With icons"
-          showIconLeft
-          showIconRight
-          iconLeftGlyph={<ArrowLeft />}
-          iconRightGlyph={<ArrowRight />}
-        />
-        <Button variant="Tertiary" label="Disabled" disabled showIconLeft iconLeftGlyph={<Star />} />
-      </Row>
+          {/* State × Variant matrix */}
+          <Sub label="States × Variants">
+            <div className="gallery-matrix gallery-matrix--btn">
+              {/* Column headers */}
+              <span />
+              {BTN_STATES.map(({ label }) => (
+                <span key={label} className="gallery-matrix__col-header">{label}</span>
+              ))}
 
-      <Stack title="Input • Default / Error / Success">
-        <Input labelText="Email" placeholderText="Enter your email" helperText="Helper text" />
-        <Input
-          labelText="Email"
-          placeholderText="Enter your email"
-          helperText="Error helper text"
-          status="Error"
-        />
-        <Input
-          labelText="Email"
-          placeholderText="Enter your email"
-          helperText="Success helper text"
-          status="Success"
-        />
-      </Stack>
+              {/* Primary row */}
+              <span className="gallery-matrix__row-label">Primary</span>
+              {BTN_STATES.map(({ state, label, disabled }) => (
+                <StateCell key={label} state={state}>
+                  <Button variant="Primary" label="Label" disabled={disabled} />
+                </StateCell>
+              ))}
 
-      <Row title="Card • Default (CTA inside, fullWidth)">
-        <Card
-          title="Demo Card"
-          body="This is a demo card rendered from the ALVA UI package."
-          cta={<Button variant="Primary" label="Button" fullWidth />}
-        />
-      </Row>
+              {/* Secondary row */}
+              <span className="gallery-matrix__row-label">Secondary</span>
+              {BTN_STATES.map(({ state, label, disabled }) => (
+                <StateCell key={label} state={state}>
+                  <Button variant="Secondary" label="Label" disabled={disabled} />
+                </StateCell>
+              ))}
 
-      <Row title="Card • ShowCTA=false">
-        <Card
-          title="No CTA"
-          body="Same card, CTA hidden."
-          showCTA={false}
-        />
-      </Row>
+              {/* Tertiary row */}
+              <span className="gallery-matrix__row-label">Tertiary</span>
+              {BTN_STATES.map(({ state, label, disabled }) => (
+                <StateCell key={label} state={state}>
+                  <Button variant="Tertiary" label="Label" disabled={disabled} />
+                </StateCell>
+              ))}
+            </div>
+          </Sub>
 
-      <Row title="Card • CTA fullWidth">
-        <Card
-          title="Full-width CTA"
-          body="O botão abaixo ocupa 100% da largura do card."
-          cta={<Button variant="Primary" label="Full Width CTA" fullWidth />}
-        />
-      </Row>
+          {/* Icon combos */}
+          <Sub label="Icon combinations — Primary">
+            <div className="gallery-row">
+              <StateCell label="No icons">
+                <Button variant="Primary" label="Label" />
+              </StateCell>
+              <StateCell label="Icon left">
+                <Button variant="Primary" label="Label" showIconLeft iconLeftGlyph={<StarIcon />} />
+              </StateCell>
+              <StateCell label="Icon right">
+                <Button variant="Primary" label="Label" showIconRight iconRightGlyph={<ArrowRightIcon />} />
+              </StateCell>
+              <StateCell label="Both icons">
+                <Button
+                  variant="Primary" label="Label"
+                  showIconLeft  iconLeftGlyph={<StarIcon />}
+                  showIconRight iconRightGlyph={<ArrowRightIcon />}
+                />
+              </StateCell>
+              <StateCell label="fullWidth (280 px container)">
+                <div style={{ width: 280 }}>
+                  <Button variant="Primary" label="Label" fullWidth />
+                </div>
+              </StateCell>
+            </div>
+          </Sub>
+        </section>
 
-      <Row title="Width test • Button fullWidth (mesma largura do Card)">
-        <div style={{ width: 360, border: "1px dashed rgba(0,0,0,0.2)", padding: 12 }}>
-          <Button variant="Primary" label="Should be full width" fullWidth />
-        </div>
-      </Row>
-    </main>
+        {/* ═══════════════════════ FIELD ════════════════════════ */}
+        <section className="gallery-section">
+          <SectionHeading title="Field" tag="<Field />" />
+
+          <Sub label="Status variants (hover + focus are CSS-forced)">
+            <div className="gallery-row">
+              <StateCell label="Default">
+                <Field placeholderText="Value" />
+              </StateCell>
+              <StateCell label="Hover" state="hover">
+                <Field placeholderText="Value" />
+              </StateCell>
+              <StateCell label="Focused" state="focus">
+                <Field placeholderText="Value" />
+              </StateCell>
+              <StateCell label="Error">
+                <Field placeholderText="Value" status="Error" />
+              </StateCell>
+              <StateCell label="Success">
+                <Field placeholderText="Value" status="Success" />
+              </StateCell>
+              <StateCell label="Disabled">
+                <Field placeholderText="Value" status="Disabled" />
+              </StateCell>
+            </div>
+          </Sub>
+
+          <Sub label="Icon combinations — Default">
+            <div className="gallery-row">
+              <StateCell label="No icons">
+                <Field placeholderText="Value" />
+              </StateCell>
+              <StateCell label="Icon left">
+                <Field placeholderText="Search…" showIconLeft iconLeftGlyph={<SearchIcon />} />
+              </StateCell>
+              <StateCell label="Icon right">
+                <Field placeholderText="Value" showIconRight iconRightGlyph={<CloseIcon />} />
+              </StateCell>
+              <StateCell label="Both icons">
+                <Field
+                  placeholderText="Search…"
+                  showIconLeft  iconLeftGlyph={<SearchIcon />}
+                  showIconRight iconRightGlyph={<CloseIcon />}
+                />
+              </StateCell>
+            </div>
+          </Sub>
+        </section>
+
+        {/* ═══════════════════════ INPUT ════════════════════════ */}
+        <section className="gallery-section">
+          <SectionHeading title="Input" tag="<Input />" />
+
+          <Sub label="Status variants + helper text">
+            <div className="gallery-row">
+              <StateCell label="Default">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  helperText="Helper text"
+                />
+              </StateCell>
+              <StateCell label="Error">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  status="Error"
+                  helperText="This field is required."
+                />
+              </StateCell>
+              <StateCell label="Success">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  status="Success"
+                  helperText="Looks good!"
+                />
+              </StateCell>
+              <StateCell label="Disabled">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  helperText="Not available."
+                  disabled
+                />
+              </StateCell>
+            </div>
+          </Sub>
+
+          <Sub label="Label decorators + icons">
+            <div className="gallery-row">
+              <StateCell label="required">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  helperText="This field is required."
+                  required
+                />
+              </StateCell>
+              <StateCell label="optional">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  showHelper={false}
+                  optional
+                />
+              </StateCell>
+              <StateCell label="showHelper=false">
+                <Input
+                  labelText="Label"
+                  placeholderText="Value"
+                  showHelper={false}
+                />
+              </StateCell>
+              <StateCell label="With icons">
+                <Input
+                  labelText="Label"
+                  placeholderText="Search…"
+                  helperText="Enter at least 3 chars."
+                  showIconLeft  iconLeftGlyph={<SearchIcon />}
+                  showIconRight iconRightGlyph={<CloseIcon />}
+                />
+              </StateCell>
+            </div>
+          </Sub>
+        </section>
+
+        {/* ═══════════════════════ CARD ═════════════════════════ */}
+        <section className="gallery-section">
+          <SectionHeading title="Card" tag="<Card />" />
+
+          <Sub label="Variants">
+            <div className="gallery-row">
+              <StateCell label="Default — CTA fullWidth">
+                <Card
+                  title="Demo Card"
+                  body="This is the demo card body text with additional information."
+                  cta={<Button variant="Primary" label="Get started" fullWidth />}
+                />
+              </StateCell>
+
+              <StateCell label="showCTA=false">
+                <Card
+                  title="No CTA"
+                  body="Same card without the call-to-action button."
+                  showCTA={false}
+                />
+              </StateCell>
+
+              <StateCell label="Tertiary CTA">
+                <Card
+                  title="Custom CTA"
+                  body="Using a Tertiary button as the card action."
+                  cta={
+                    <Button
+                      variant="Tertiary" label="Learn more"
+                      showIconRight iconRightGlyph={<ArrowRightIcon />}
+                      fullWidth
+                    />
+                  }
+                />
+              </StateCell>
+            </div>
+          </Sub>
+        </section>
+
+      </main>
+    </>
   );
 }
