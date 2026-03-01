@@ -200,7 +200,6 @@ import { Field } from 'alva-ui';
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `status` | `'Default' \| 'Error' \| 'Success' \| 'Disabled'` | `'Default'` | Figma Status variant axis |
-| `filled` | `boolean` | — | Explicit filled state; CSS `:placeholder-shown` auto-handles when omitted |
 | `placeholderText` | `string` | `'Value'` | Figma placeholderText → native `placeholder` |
 | `showIconLeft` | `boolean` | `false` | Renders left icon slot |
 | `showIconRight` | `boolean` | `false` | Renders right icon slot |

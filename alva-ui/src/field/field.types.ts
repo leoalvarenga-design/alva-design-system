@@ -18,13 +18,6 @@ export interface FieldProps
    */
   status?: FieldStatus;
   /**
-   * Figma "Filled" variant axis.
-   * When omitted, CSS :placeholder-shown drives text color automatically
-   * (empty → neutral/disabled token; value present → neutral/body token).
-   * Set explicitly for controlled or static rendering overrides.
-   */
-  filled?: boolean;
-  /**
    * Figma "placeholderText" prop — maps to the native placeholder attribute.
    * @default "Value"
    */

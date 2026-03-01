@@ -2,8 +2,10 @@
  * ALVA Field — component styles
  * Source: Figma component set "Field" (node 197:538, file zdEc4YhpXo3KFyY3jOtPDc)
  *
- * Variant axes
- *   Status × Filled  (12 variants: 6 statuses × 2 fill states)
+ * Variant axis
+ *   Status  (6 statuses: Default / Hover / Focused / Error / Success / Disabled)
+ *   Filled state is handled natively: ::placeholder drives empty text color;
+ *   input text color drives the typed-value color — no prop needed.
  *
  * Token mapping per Status (Figma variable names → CSS custom properties)
  *
@@ -17,10 +19,10 @@
  *             border: border/neutral/disabled/default
  *             icon: icon/on-surface/disabled/default
  *
- * Filled state (text color)
- *   Filled=false  placeholder / empty   → text/neutral/disabled/default  (via ::placeholder + :placeholder-shown)
- *   Filled=true   has value              → text/neutral/body/default
- *   Disabled       both states            → text/neutral/disabled/default
+ * Text color (native browser behavior — no prop)
+ *   Placeholder / empty  → --alva-field-placeholder-color → text/neutral/disabled/default  (via ::placeholder)
+ *   Typed value           → --alva-field-text-color        → text/neutral/body/default
+ *   Disabled (both)       → text/neutral/disabled/default
  *
  * Icon pattern (mirrors Figma _mask + _color):
  *   .alva-field__icon sets color: var(--alva-field-icon-color).
@@ -184,16 +186,3 @@
   pointer-events: none;
 }
 
-/* ═══════════════════════════════════════════
-   FILLED=true override (explicit prop)
-   When the consumer sets filled={true} on
-   a Default/Error/Success field to force
-   filled text color without input value.
-═══════════════════════════════════════════ */
-.alva-field:not([data-status="Disabled"])[data-filled="true"] {
-  --alva-field-text-color: var(--semantic-text-neutral-body-default);
-}
-
-.alva-field:not([data-status="Disabled"])[data-filled="false"] {
-  --alva-field-text-color: var(--semantic-text-neutral-disabled-default);
-}

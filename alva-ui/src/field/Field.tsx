@@ -7,10 +7,9 @@ import type { FieldProps } from './field.types';
  * Mirrors the Figma "Field" component set (node 197:538).
  *
  * Variant axes
- *   Status  → `status` prop  (Default | Error | Success | Disabled)
- *   Filled  → `filled` prop  (optional; when omitted, CSS :placeholder-shown
- *              drives text color automatically — empty shows placeholder token,
- *              value present shows body token)
+ *   Status → `status` prop  (Default | Error | Success | Disabled)
+ *   Filled state is web-native: ::placeholder colors the empty state,
+ *   input text color handles the typed value — no prop required.
  *
  * Properties
  *   placeholderText   → native placeholder attribute
@@ -35,7 +34,6 @@ import type { FieldProps } from './field.types';
 export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
   {
     status = 'Default',
-    filled,
     placeholderText = 'Value',
     showIconLeft = false,
     showIconRight = false,
@@ -56,7 +54,6 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
     <span
       className={rootClass}
       data-status={resolvedStatus}
-      data-filled={filled != null ? String(filled) : undefined}
     >
       {showIconLeft && iconLeftGlyph != null && (
         <span
