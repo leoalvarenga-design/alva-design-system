@@ -20,14 +20,17 @@
 }
 
 html {
-  font-family: var(--primitives-typography-font-family-body), system-ui, sans-serif;
+  font-family:  var(--primitives-typography-font-family-body), system-ui, sans-serif;
+  font-size:    var(--responsive-typography-fontsize-body-md);   /* 16px — body-md scale */
+  line-height:  var(--responsive-typography-lineheight-body-md); /* 24px */
 }
 
 body {
   background-color: var(--semantic-surface-neutral-page-default);
-  color: var(--semantic-text-neutral-body-default);
-  min-height: 100dvh;
+  color:       var(--semantic-text-neutral-body-default);
+  font-weight: var(--primitives-typography-font-weight-regular);
+  min-height:  100dvh;
   transition:
     background-color 200ms ease,
-    color 200ms ease;
+    color            200ms ease;
 }
