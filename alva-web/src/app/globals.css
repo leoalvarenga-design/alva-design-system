@@ -10,6 +10,15 @@
 /* ── Tailwind (utility layer) ── */
 @import "tailwindcss";
 
+/* ── Bridge: wire next/font CSS vars → DS primitive font-family tokens ──
+   next/font/google generates --font-inter and --font-poppins on <html>.
+   Overriding the DS primitives here keeps every component CSS untouched
+   while ensuring the real font files are served. ── */
+:root {
+  --primitives-typography-font-family-body:    var(--font-inter, Inter);
+  --primitives-typography-font-family-heading: var(--font-poppins, Poppins);
+}
+
 /* ── Page baseline — driven by ALVA semantic tokens ── */
 *,
 *::before,
