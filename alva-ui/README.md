@@ -160,6 +160,57 @@ Token naming follows the ALVA convention:
 
 ---
 
+## Field
+
+Import the CSS once, then use:
+
+```tsx
+import { Field } from 'alva-ui';
+// import 'alva-ui/src/field/field.css'; ← add to app root
+
+// Default — empty (placeholder text)
+<Field placeholderText="Email address" />
+
+// With icons (SVGs must use fill="currentColor")
+<Field
+  placeholderText="Search"
+  showIconLeft
+  iconLeftGlyph={<SearchIcon />}
+  showIconRight
+  iconRightGlyph={<ClearIcon />}
+/>
+
+// Feedback statuses
+<Field status="Error"   placeholderText="Invalid email" />
+<Field status="Success" placeholderText="Email confirmed" />
+
+// Disabled
+<Field placeholderText="Read only" disabled />
+
+// Controlled
+<Field
+  value={value}
+  onChange={e => setValue(e.target.value)}
+  placeholderText="Type here"
+/>
+```
+
+### Field Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `status` | `'Default' \| 'Error' \| 'Success' \| 'Disabled'` | `'Default'` | Figma Status variant axis |
+| `filled` | `boolean` | — | Explicit filled state; CSS `:placeholder-shown` auto-handles when omitted |
+| `placeholderText` | `string` | `'Value'` | Figma placeholderText → native `placeholder` |
+| `showIconLeft` | `boolean` | `false` | Renders left icon slot |
+| `showIconRight` | `boolean` | `false` | Renders right icon slot |
+| `iconLeftGlyph` | `ReactNode` | — | SVG with `fill="currentColor"` |
+| `iconRightGlyph` | `ReactNode` | — | SVG with `fill="currentColor"` |
+
+All native `<input>` attributes are forwarded. The `ref` points to the inner `<input>`. Icon slots use the same `_mask + _color` CSS pattern as Button.
+
+---
+
 ## Icon
 
 Import the CSS once, then use:

@@ -1,0 +1,199 @@
+/*
+ * ALVA Field — component styles
+ * Source: Figma component set "Field" (node 197:538, file zdEc4YhpXo3KFyY3jOtPDc)
+ *
+ * Variant axes
+ *   Status × Filled  (12 variants: 6 statuses × 2 fill states)
+ *
+ * Token mapping per Status (Figma variable names → CSS custom properties)
+ *
+ *   Default   bg: surface/neutral/primary/default   border: border/neutral/primary/default
+ *             icon: icon/neutral/primary/default
+ *   Hover     bg: (same)   border: border/action/primary/hover   icon: icon/action/primary/hover
+ *   Focused   bg: (same)   border: border/neutral/primary/focus  icon: icon/neutral/primary/default (stays neutral)
+ *   Error     bg: (same)   border: border/feedback/error/default  icon: icon/feedback/error/default
+ *   Success   bg: (same)   border: border/feedback/success/default icon: icon/feedback/success/default
+ *   Disabled  bg: surface/neutral/disabled/default
+ *             border: border/neutral/disabled/default
+ *             icon: icon/on-surface/disabled/default
+ *
+ * Filled state (text color)
+ *   Filled=false  placeholder / empty   → text/neutral/disabled/default  (via ::placeholder + :placeholder-shown)
+ *   Filled=true   has value              → text/neutral/body/default
+ *   Disabled       both states            → text/neutral/disabled/default
+ *
+ * Icon pattern (mirrors Figma _mask + _color):
+ *   .alva-field__icon sets color: var(--alva-field-icon-color).
+ *   Glyph SVGs use fill="currentColor" — the slot owns the visible color,
+ *   keeping glyph vectors token-free and swap-safe.
+ *
+ * Spacing / sizing from Figma tokens
+ *   paddingH  → responsive/spacing/md  (16px)
+ *   paddingV  → responsive/spacing/sm  (12px)
+ *   gap       → responsive/spacing/xs   (8px)
+ *   radius    → primitives/border-radius/md  (4px)
+ *   border-w  → primitives/border-width/sm   (1px)  [Figma sw=1, no variable binding → bind to nearest token]
+ *   icon size → semantic/icon/size/sm  (16px)   [Figma iconLeft/Right w=16 h=16]
+ *   default w → 280px  (Figma FIXED, matches design-bible.md "ex.: 280px")
+ *
+ * Requires: alva-ui/src/tokens/alva.css loaded at app root.
+ */
+
+/* ─── Base ─── */
+.alva-field {
+  /* Private tokens — reassigned per status / state below */
+  --alva-field-bg:                var(--semantic-surface-neutral-primary-default);
+  --alva-field-border-color:      var(--semantic-border-neutral-primary-default);
+  --alva-field-icon-color:        var(--semantic-icon-neutral-primary-default);
+  --alva-field-text-color:        var(--semantic-text-neutral-body-default);
+  --alva-field-placeholder-color: var(--semantic-text-neutral-disabled-default);
+
+  /* Layout — matches Figma horizontal auto-layout, FIXED */
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--responsive-spacing-xs);
+
+  width:     280px;
+  min-width: 0;
+
+  padding-top:    var(--responsive-spacing-sm);
+  padding-bottom: var(--responsive-spacing-sm);
+  padding-left:   var(--responsive-spacing-md);
+  padding-right:  var(--responsive-spacing-md);
+
+  box-sizing:    border-box;
+  border-radius: var(--primitives-border-radius-md);
+  border-style:  solid;
+  border-width:  var(--primitives-border-width-sm);
+  border-color:  var(--alva-field-border-color);
+  background:    var(--alva-field-bg);
+
+  cursor: text;
+
+  transition:
+    border-color 120ms ease,
+    background   120ms ease;
+}
+
+/* ─── Input ─── */
+.alva-field__input {
+  flex:        1 1 auto;
+  min-width:   0;
+  border:      none;
+  background:  transparent;
+  outline:     none;
+  padding:     0;
+  margin:      0;
+
+  font-family: var(--primitives-typography-font-family-body);
+  font-size:   var(--responsive-typography-fontsize-body-md);
+  font-weight: var(--primitives-typography-font-weight-regular);
+  line-height: var(--responsive-typography-lineheight-body-md);
+  color:       var(--alva-field-text-color);
+
+  /* Remove browser autofill yellow background */
+  -webkit-text-fill-color: var(--alva-field-text-color);
+}
+
+.alva-field__input::placeholder {
+  color:                   var(--alva-field-placeholder-color);
+  -webkit-text-fill-color: var(--alva-field-placeholder-color);
+}
+
+/* ─── Icon slots (mask + _color pattern) ─── */
+.alva-field__icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:  var(--semantic-icon-size-sm);
+  height: var(--semantic-icon-size-sm);
+  /*
+   * Drives visible icon color via currentColor on the glyph SVG.
+   * Mirrors Figma's _color rectangle fill that supplies the visible color
+   * while the glyph is the mask shape (token-free, swap-safe).
+   */
+  color: var(--alva-field-icon-color);
+
+  transition: color 120ms ease;
+}
+
+.alva-field__icon > * {
+  width:  100%;
+  height: 100%;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════
+   HOVER — only applies on Default status.
+   Error/Success borders are preserved on hover
+   (feedback state takes precedence).
+═══════════════════════════════════════════ */
+.alva-field:not([data-status="Error"]):not([data-status="Success"]):not([data-status="Disabled"]):hover {
+  --alva-field-border-color: var(--semantic-border-action-primary-hover);
+  --alva-field-icon-color:   var(--semantic-icon-action-primary-hover);
+}
+
+/* ═══════════════════════════════════════════
+   FOCUSED — :focus-within triggers when
+   the inner <input> is focused.
+   Border switches to focus token; icon
+   stays at neutral/primary/default (matches
+   Figma Focused variant exactly).
+═══════════════════════════════════════════ */
+.alva-field:not([data-status="Disabled"]):focus-within {
+  --alva-field-border-color: var(--semantic-border-neutral-primary-focus);
+  --alva-field-icon-color:   var(--semantic-icon-neutral-primary-default);
+}
+
+/* ═══════════════════════════════════════════
+   ERROR status
+═══════════════════════════════════════════ */
+.alva-field[data-status="Error"] {
+  --alva-field-border-color: var(--semantic-border-feedback-error-default);
+  --alva-field-icon-color:   var(--semantic-icon-feedback-error-default);
+}
+
+/* ═══════════════════════════════════════════
+   SUCCESS status
+═══════════════════════════════════════════ */
+.alva-field[data-status="Success"] {
+  --alva-field-border-color: var(--semantic-border-feedback-success-default);
+  --alva-field-icon-color:   var(--semantic-icon-feedback-success-default);
+}
+
+/* ═══════════════════════════════════════════
+   DISABLED status
+   Applied via data-status="Disabled" and/or
+   the native :disabled state on the input
+   (propagated up with :has).
+═══════════════════════════════════════════ */
+.alva-field[data-status="Disabled"],
+.alva-field:has(input:disabled) {
+  --alva-field-bg:                var(--semantic-surface-neutral-disabled-default);
+  --alva-field-border-color:      var(--semantic-border-neutral-disabled-default);
+  --alva-field-icon-color:        var(--semantic-icon-on-surface-disabled-default);
+  --alva-field-text-color:        var(--semantic-text-neutral-disabled-default);
+  --alva-field-placeholder-color: var(--semantic-text-neutral-disabled-default);
+  cursor: not-allowed;
+}
+
+.alva-field[data-status="Disabled"] .alva-field__input,
+.alva-field:has(input:disabled) .alva-field__input {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   FILLED=true override (explicit prop)
+   When the consumer sets filled={true} on
+   a Default/Error/Success field to force
+   filled text color without input value.
+═══════════════════════════════════════════ */
+.alva-field:not([data-status="Disabled"])[data-filled="true"] {
+  --alva-field-text-color: var(--semantic-text-neutral-body-default);
+}
+
+.alva-field:not([data-status="Disabled"])[data-filled="false"] {
+  --alva-field-text-color: var(--semantic-text-neutral-disabled-default);
+}
