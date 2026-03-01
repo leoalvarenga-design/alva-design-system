@@ -117,10 +117,11 @@ export default function Home() {
         />
       </Stack>
 
-      <Row title="Card • Default (CTA inside)">
+      <Row title="Card • Default (CTA inside, fullWidth)">
         <Card
           title="Demo Card"
           body="This is a demo card rendered from the ALVA UI package."
+          cta={<Button variant="Primary" label="Button" fullWidth />}
         />
       </Row>
 
