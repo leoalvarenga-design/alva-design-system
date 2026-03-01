@@ -1,0 +1,43 @@
+/*
+ * ALVA Label — component styles
+ *
+ * Token mapping
+ *   label text  → text/neutral/body/default      (semantic-text-neutral-body-default)
+ *   required *  → text/feedback/error/default    (semantic-text-feedback-error-default)
+ *   optional    → text/neutral/disabled/default  (semantic-text-neutral-disabled-default)
+ *
+ * Typography
+ *   font-family  → primitives/typography/font-family/body
+ *   font-size    → responsive/typography/fontsize/body/sm   (12px)
+ *   line-height  → responsive/typography/lineheight/body/sm (20px)
+ *   font-weight  → primitives/typography/font-weight/semibold (label text)
+ *                  primitives/typography/font-weight/regular  (optional badge)
+ *
+ * Layout
+ *   gap → responsive/spacing/2xs (4px)
+ *
+ * Requires: alva-ui/src/tokens/alva.css loaded at app root.
+ */
+
+.alva-label {
+  display:     inline-flex;
+  align-items: baseline;
+  gap:         var(--responsive-spacing-2xs);
+
+  font-family:  var(--primitives-typography-font-family-body);
+  font-size:    var(--responsive-typography-fontsize-body-sm);
+  font-weight:  var(--primitives-typography-font-weight-semibold);
+  line-height:  var(--responsive-typography-lineheight-body-sm);
+  color:        var(--semantic-text-neutral-body-default);
+}
+
+/* Required asterisk */
+.alva-label__required {
+  color: var(--semantic-text-feedback-error-default);
+}
+
+/* Optional badge */
+.alva-label__optional {
+  font-weight: var(--primitives-typography-font-weight-regular);
+  color:       var(--semantic-text-neutral-disabled-default);
+}

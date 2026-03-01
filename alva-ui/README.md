@@ -160,6 +160,36 @@ Token naming follows the ALVA convention:
 
 ---
 
+## Label
+
+Import the CSS once, then use:
+
+```tsx
+import { Label } from 'alva-ui';
+// import 'alva-ui/src/label/label.css'; ← add to app root
+
+// Default
+<Label labelText="Email address" htmlFor="email" />
+
+// Required — appends * in error token color
+<Label labelText="Password" htmlFor="password" required />
+
+// Optional — appends "Optional" badge in disabled token color
+<Label labelText="Nickname" htmlFor="nickname" optional />
+```
+
+### Label Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `labelText` | `string` | — | Visible label text (required) |
+| `required` | `boolean` | `false` | Appends `*` in `text/feedback/error/default` color |
+| `optional` | `boolean` | `false` | Appends "Optional" in `text/neutral/disabled/default` color; ignored when `required` is true |
+
+All native `<label>` attributes (`htmlFor`, `id`, etc.) are forwarded. The `*` is `aria-hidden`; signal required state on the associated input via `required` / `aria-required`.
+
+---
+
 ## Field
 
 Import the CSS once, then use:
