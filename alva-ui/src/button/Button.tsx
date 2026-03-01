@@ -30,6 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       showIconRight = false,
       iconLeftGlyph,
       iconRightGlyph,
+      fullWidth = false,
       className,
       children,
       disabled = false,
@@ -46,6 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         className={rootClass}
         data-variant={variant}
+        data-fullwidth={fullWidth || undefined}
         disabled={disabled}
         aria-disabled={disabled}
         {...rest}

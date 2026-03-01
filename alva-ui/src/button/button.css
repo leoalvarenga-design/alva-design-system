@@ -79,6 +79,12 @@
     color            120ms ease;
 }
 
+/* ─── Full-width modifier ─── */
+.alva-button[data-fullwidth] {
+  display: flex; /* overrides inline-flex so block width applies */
+  width:   100%;
+}
+
 /* ─── Icon slots ─── */
 .alva-button__icon {
   display:         inline-flex;

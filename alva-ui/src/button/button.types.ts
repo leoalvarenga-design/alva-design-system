@@ -25,6 +25,12 @@ export interface ButtonProps
    * Same constraints as iconLeftGlyph.
    */
   iconRightGlyph?: ReactNode;
+  /**
+   * Expands the button to fill its container width.
+   * Switches from `inline-flex` to `flex` + `width: 100%`.
+   * @default false
+   */
+  fullWidth?: boolean;
   /** Native button type */
   type?: 'button' | 'submit' | 'reset';
 }
