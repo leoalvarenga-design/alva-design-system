@@ -160,6 +160,65 @@ Token naming follows the ALVA convention:
 
 ---
 
+## Input
+
+Composes `Label` + `Field` + helper text into a single accessible form control.
+Faithful to the Figma `Input` component set (node 199:1718).
+
+Import the CSS files once at your app root, then use:
+
+```tsx
+import { Input } from 'alva-ui';
+// import 'alva-ui/src/tokens/alva.css';  ← design tokens
+// import 'alva-ui/src/label/label.css';  ← Label styles
+// import 'alva-ui/src/field/field.css';  ← Field styles
+// import 'alva-ui/src/input/input.css';  ← Input styles
+
+// Default
+<Input labelText="Email" placeholderText="you@example.com" />
+
+// Required — adds * on Label + native required on <input>
+<Input labelText="Password" required helperText="At least 8 characters" />
+
+// Error status
+<Input
+  labelText="Email"
+  status="Error"
+  helperText="Invalid email address"
+  placeholderText="you@example.com"
+/>
+
+// Success
+<Input labelText="Username" status="Success" helperText="Username is available" />
+
+// Optional, no helper
+<Input labelText="Nickname" optional showHelper={false} />
+
+// Disabled
+<Input labelText="Read-only field" disabled />
+```
+
+### Input Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `status` | `'Default' \| 'Error' \| 'Success' \| 'Disabled'` | `'Default'` | Figma Status axis — drives Field + helper text tokens |
+| `showLabel` | `boolean` | `true` | Figma showLabel — toggles Label visibility |
+| `showHelper` | `boolean` | `true` | Figma showHelper — toggles helper text visibility |
+| `helperText` | `string` | `'Helper text'` | Figma helperText — message below the Field |
+| `labelText` | `string` | `'Label'` | Label text (Label passthrough) |
+| `required` | `boolean` | — | Adds `*` on Label + native `required` on `<input>` |
+| `optional` | `boolean` | `false` | Adds "Optional" badge on Label; ignored when `required` |
+| `placeholderText` | `string` | — | Field placeholder text |
+| `showIconLeft` | `boolean` | — | Renders left icon slot in Field |
+| `showIconRight` | `boolean` | — | Renders right icon slot in Field |
+| `iconLeftGlyph` | `ReactNode` | — | SVG with `fill="currentColor"` for left slot |
+| `iconRightGlyph` | `ReactNode` | — | SVG with `fill="currentColor"` for right slot |
+
+All other native `<input>` attributes are forwarded to the inner `<input>`. The `ref` points to the inner `<input>`.
+
+---
+
 ## Label
 
 Import the CSS once, then use:

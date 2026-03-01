@@ -1,0 +1,69 @@
+/*
+ * ALVA Input — component styles
+ * Source: Figma component set "Input" (node 199:1718, file zdEc4YhpXo3KFyY3jOtPDc)
+ *
+ * Structure
+ *   .alva-input              vertical flex wrapper
+ *     .alva-input__label     → <Label> (optional via showLabel)
+ *     .alva-input__field     → <Field> (always present)
+ *     .alva-input__helper    → helper text span (optional via showHelper)
+ *
+ * Layout (from Figma)
+ *   layoutMode   → VERTICAL (flex-direction: column)
+ *   padding      → 0 (no wrapper padding; Field/Label own their spacing)
+ *   itemSpacing  → 4px → responsive/spacing/2xs
+ *   width        → 280px (matches Field fixed width)
+ *
+ * HelperText token map (Figma variable bindings)
+ *   Default / Hover / Focused / Disabled → text/neutral/disabled/default  (VariableID:133:243)
+ *   Error                                → text/feedback/error/default    (VariableID:133:248)
+ *   Success                              → text/feedback/success/default  (VariableID:133:249)
+ *
+ * HelperText typography
+ *   font-size   → responsive/typography/fontsize/body/sm   (VariableID:19:4  = 12px)
+ *   line-height → responsive/typography/lineheight/body/sm (VariableID:19:13 = 20px)
+ *   font-weight → primitives/typography/font-weight/regular
+ *   font-family → primitives/typography/font-family/body
+ *
+ * Requires: alva-ui/src/tokens/alva.css loaded at app root.
+ */
+
+/* ─── Wrapper ─── */
+.alva-input {
+  /* Private token — reassigned per status below */
+  --alva-input-helper-color: var(--semantic-text-neutral-disabled-default);
+
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--responsive-spacing-2xs);
+  width:          280px;
+}
+
+/* ─── Helper text ─── */
+.alva-input__helper {
+  font-family:  var(--primitives-typography-font-family-body);
+  font-size:    var(--responsive-typography-fontsize-body-sm);
+  font-weight:  var(--primitives-typography-font-weight-regular);
+  line-height:  var(--responsive-typography-lineheight-body-sm);
+  color:        var(--alva-input-helper-color);
+}
+
+/* ═══════════════════════════════════════════
+   ERROR status → helper text uses error token
+═══════════════════════════════════════════ */
+.alva-input[data-status="Error"] {
+  --alva-input-helper-color: var(--semantic-text-feedback-error-default);
+}
+
+/* ═══════════════════════════════════════════
+   SUCCESS status → helper text uses success token
+═══════════════════════════════════════════ */
+.alva-input[data-status="Success"] {
+  --alva-input-helper-color: var(--semantic-text-feedback-success-default);
+}
+
+/*
+ * Default, Hover, Focused, Disabled all keep
+ * --alva-input-helper-color: --semantic-text-neutral-disabled-default.
+ * No additional overrides needed; hover/focus are handled by Field's own CSS.
+ */
