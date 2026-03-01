@@ -160,6 +160,57 @@ Token naming follows the ALVA convention:
 
 ---
 
+## Card
+
+Single-component (no variant axes) faithful to the Figma `Card` (node 136:371).
+Composes an image slot, title, body copy, and an optional CTA using `<Button>` from alva-ui.
+
+```tsx
+import { Card, Button } from 'alva-ui';
+// import 'alva-ui/src/card/card.css';    ← add to app root
+// import 'alva-ui/src/button/button.css' ← also required
+
+// Default — all Figma defaults
+<Card />
+
+// Custom content
+<Card
+  title="Get started"
+  body="Everything you need to build your next project."
+/>
+
+// Custom image
+<Card
+  title="Visual story"
+  body="An image that speaks for itself."
+  image={<img src="/hero.jpg" alt="Hero" />}
+/>
+
+// Custom CTA (Instance INSTANCE_SWAP equivalent)
+<Card
+  title="Subscribe"
+  body="Stay up to date with our newsletter."
+  cta={<Button variant="Secondary" label="Subscribe" />}
+/>
+
+// No CTA
+<Card title="Read-only card" body="No action required." showCTA={false} />
+```
+
+### Card Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `title` | `string` | `'Demo Card Title'` | Figma "Title" TEXT property — Poppins SemiBold h6 |
+| `body` | `string` | `'This is the demo card body…'` | Figma "Body" TEXT property — Inter Regular body-md |
+| `showCTA` | `boolean` | `true` | Figma "ShowCTA" BOOLEAN — toggles CTA visibility |
+| `cta` | `ReactNode` | `<Button variant="Primary" label="Button" />` | Figma "Instance" INSTANCE_SWAP — CTA slot |
+| `image` | `ReactNode` | placeholder div | Image slot (not in Figma API; extension) |
+
+All native `<div>` attributes are forwarded to the card wrapper.
+
+---
+
 ## Input
 
 Composes `Label` + `Field` + helper text into a single accessible form control.

@@ -5,6 +5,7 @@
 @import "alva-ui/src/field/field.css";
 @import "alva-ui/src/label/label.css";
 @import "alva-ui/src/input/input.css";
+@import "alva-ui/src/card/card.css";
 
 /* ── Tailwind (utility layer) ── */
 @import "tailwindcss";

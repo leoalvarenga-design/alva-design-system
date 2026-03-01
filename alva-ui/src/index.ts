@@ -13,6 +13,9 @@ export type { LabelProps } from './label/label.types';
 export { Input } from './input/Input';
 export type { InputProps, InputStatus } from './input/input.types';
 
+export { Card } from './card/Card';
+export type { CardProps } from './card/card.types';
+
 /*
  * CSS — import all required files once at your app root (or in globals.css / layout):
  *

@@ -1,0 +1,98 @@
+/*
+ * ALVA Card — component styles
+ * Source: Figma component "Card" (node 136:371, file zdEc4YhpXo3KFyY3jOtPDc)
+ *
+ * Token bindings (Figma variable ID → CSS custom property)
+ *
+ *   Card background  133:255 → --semantic-surface-neutral-primary-default
+ *   Card border      133:265 → --semantic-border-neutral-primary-default
+ *   Border width     (no var) → --primitives-border-width-sm   (req: always use this var)
+ *   Border radius    (no var) → --primitives-border-radius-lg   (8px → maps to -lg token)
+ *   Gap              133:298 → --responsive-spacing-md          (16px)
+ *   Padding          133:299 → --responsive-spacing-lg          (24px, all sides)
+ *
+ *   Image bg         133:256 → --semantic-surface-neutral-disabled-default
+ *   Image height     → 180px (Figma fixed; no token equivalent)
+ *
+ *   Title color      133:241 → --semantic-text-neutral-heading-default
+ *   Title font       Poppins SemiBold 20/24 →
+ *                      --primitives-typography-font-family-heading
+ *                      --responsive-typography-fontsize-h6
+ *                      --primitives-typography-font-weight-semibold
+ *                      --responsive-typography-lineheight-h6
+ *
+ *   Body color       133:242 → --semantic-text-neutral-body-default
+ *   Body font        Inter Regular 16/24 →
+ *                      --primitives-typography-font-family-body
+ *                      --responsive-typography-fontsize-body-md
+ *                      --primitives-typography-font-weight-regular
+ *                      --responsive-typography-lineheight-body-md
+ *
+ * Fixed dimensions with no token equivalent
+ *   Card width  → 360px   (Figma FIXED, no spacing/layout token at this value)
+ *   Image height → 180px  (Figma FIXED, no spacing/layout token at this value)
+ *
+ * Requires: alva-ui/src/tokens/alva.css loaded at app root.
+ */
+
+/* ─── Card wrapper ─── */
+.alva-card {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--responsive-spacing-md);
+  padding:        var(--responsive-spacing-lg);
+  box-sizing:     border-box;
+
+  width: 360px; /* Figma fixed width — no primitive token at 360px */
+
+  background:    var(--semantic-surface-neutral-primary-default);
+  border:        var(--primitives-border-width-sm) solid var(--semantic-border-neutral-primary-default);
+  border-radius: var(--primitives-border-radius-lg);
+}
+
+/* ─── Image slot ─── */
+.alva-card__image {
+  width:    100%; /* fills card after padding */
+  height:   180px; /* Figma fixed — no primitive token at 180px */
+  overflow: hidden;
+
+  background:    var(--semantic-surface-neutral-disabled-default);
+  border-radius: var(--primitives-border-radius-sm);
+  flex-shrink:   0;
+}
+
+.alva-card__image > * {
+  width:  100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ─── Title ─── */
+.alva-card__title {
+  margin:      0;
+  font-family: var(--primitives-typography-font-family-heading);
+  font-size:   var(--responsive-typography-fontsize-h6);
+  font-weight: var(--primitives-typography-font-weight-semibold);
+  line-height: var(--responsive-typography-lineheight-h6);
+  color:       var(--semantic-text-neutral-heading-default);
+}
+
+/* ─── Body ─── */
+.alva-card__body {
+  margin:      0;
+  font-family: var(--primitives-typography-font-family-body);
+  font-size:   var(--responsive-typography-fontsize-body-md);
+  font-weight: var(--primitives-typography-font-weight-regular);
+  line-height: var(--responsive-typography-lineheight-body-md);
+  color:       var(--semantic-text-neutral-body-default);
+}
+
+/* ─── CTA slot ─── */
+/*
+ * No additional wrapper styling — the composed <Button /> owns its own styles.
+ * .alva-card__cta keeps the slot semantically named without adding visual noise.
+ */
+.alva-card__cta {
+  display: flex;
+}
