@@ -1,0 +1,8 @@
+/* ── Storybook canvas baseline — ALVA semantic tokens ── */
+html,
+body {
+  background: var(--semantic-surface-neutral-page-default, #f4efe8);
+  color:       var(--semantic-text-neutral-body-default, #1a1a1a);
+  font-family: var(--primitives-typography-font-family-body, system-ui);
+  transition:  background 200ms ease, color 200ms ease;
+}

@@ -58,6 +58,26 @@
   --alva-btn-border-color: var(--semantic-border-neutral-primary-focus);
 }
 
+/* ── Field: Hover (Default status only — matches field.css :hover rule) ─── */
+
+[data-force-hover] .alva-field:not([data-status="Error"]):not([data-status="Success"]):not([data-status="Disabled"]) {
+  --alva-field-border-color: var(--semantic-border-action-primary-hover);
+  --alva-field-icon-color:   var(--semantic-icon-action-primary-hover);
+}
+
+/* ── Field: Focus ────────────────────────────────────────────────────────── */
+
+[data-force-focus] .alva-field:not([data-status="Disabled"]) {
+  --alva-field-border-color: var(--semantic-border-neutral-primary-focus);
+  --alva-field-icon-color:   var(--semantic-icon-neutral-primary-default);
+}
+
+/* ── Icon color overrides — used in Icon Gallery ─────────────────────────── */
+
+.sb-gallery__icon-action  { --alva-icon-color: var(--semantic-icon-action-primary-default);  }
+.sb-gallery__icon-error   { --alva-icon-color: var(--semantic-icon-feedback-error-default);   }
+.sb-gallery__icon-success { --alva-icon-color: var(--semantic-icon-feedback-success-default); }
+
 /* ── Gallery layout ──────────────────────────────────────────────────────── */
 
 .sb-gallery {
@@ -139,4 +159,25 @@
 
 .sb-gallery__fullwidth-container {
   width: 280px;
+}
+
+/* ── Auto-fill grid for Field / Icon galleries ───────────────────────────── */
+/* Fills as many 280px columns as the viewport allows (min 1). */
+
+.sb-gallery__grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, max-content));
+  gap:                   24px;
+}
+
+/* Smaller grid for Icon (fixed 48px slots) */
+.sb-gallery__grid--icon {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, max-content));
+  gap:                   24px;
+}
+
+/* Center the component inside a grid cell (for Icons) */
+.sb-gallery__item--center {
+  align-items: center;
 }

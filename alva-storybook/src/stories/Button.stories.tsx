@@ -1,42 +1,7 @@
 import './gallery.css';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from 'alva-ui';
-
-// ── Icon glyphs ───────────────────────────────────────────────────────────────
-// SVGs use stroke/fill="currentColor" so the button's token color drives them.
-
-const IconArrowLeft = (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M13 8H3M7 12 3 8l4-4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const IconArrowRight = (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M3 8h10M9 4l4 4-4 4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const IconStar = (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M8 2l1.546 3.13L13 5.78l-2.5 2.437.59 3.44L8 9.96l-3.09 1.697.59-3.44L3 5.78l3.454-.65L8 2z"
-      fill="currentColor"
-    />
-  </svg>
-);
+import { ArrowLeft, ArrowRight, Star } from './_icons';
 
 // ── Meta ──────────────────────────────────────────────────────────────────────
 
@@ -47,23 +12,22 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   args: {
     variant: 'Primary',
-    label: 'Button',
+    label:   'Button',
   },
   argTypes: {
-    // ReactNode slots are not serialisable — disable the Controls panel for them.
+    // ReactNode slots — not serialisable, disable in Controls
     iconLeftGlyph:  { control: false },
     iconRightGlyph: { control: false },
   },
   /**
-   * Global render: auto-injects a default glyph when showIconLeft/Right is
-   * toggled via the Controls panel but no explicit glyph has been provided.
-   * Stories that already set iconLeftGlyph/iconRightGlyph in their args pass
-   * them through unchanged (the ?? guard only fires when the value is undefined).
-   * When showIcon* is false the corresponding glyph is cleared entirely.
+   * Auto-injects a default glyph when a showIcon* toggle is true but no
+   * explicit glyph was provided in args (e.g. via the Controls panel).
+   * Stories that already set a glyph pass it through unchanged (the ?? guard
+   * only fires when the value is undefined). Clearing the toggle clears the glyph.
    */
   render: (args) => {
-    const iconLeft  = args.showIconLeft  ? (args.iconLeftGlyph  ?? IconArrowLeft)  : undefined;
-    const iconRight = args.showIconRight ? (args.iconRightGlyph ?? IconArrowRight) : undefined;
+    const iconLeft  = args.showIconLeft  ? (args.iconLeftGlyph  ?? ArrowLeft)  : undefined;
+    const iconRight = args.showIconRight ? (args.iconRightGlyph ?? ArrowRight) : undefined;
     return (
       <Button
         {...args}
@@ -92,38 +56,36 @@ export const Tertiary: Story = {
 };
 
 // ── Icon stories ──────────────────────────────────────────────────────────────
-// Glyphs are fixed via args; meta's render() passes them through (args.iconLeftGlyph
-// is defined, so the ?? default is never reached). The boolean toggles are hidden
-// because flipping them in Controls would leave a glyph with no slot to render into.
+// Glyphs are fixed; showIcon* toggles are hidden to avoid conflicting state.
 
 export const WithIconLeft: Story = {
   args: {
-    variant: 'Primary',
-    label: 'Back',
-    showIconLeft: true,
-    iconLeftGlyph: IconArrowLeft,
+    variant:       'Primary',
+    label:         'Back',
+    showIconLeft:  true,
+    iconLeftGlyph: ArrowLeft,
   },
   argTypes: { showIconLeft: { control: false } },
 };
 
 export const WithIconRight: Story = {
   args: {
-    variant: 'Primary',
-    label: 'Next',
-    showIconRight: true,
-    iconRightGlyph: IconArrowRight,
+    variant:        'Primary',
+    label:          'Next',
+    showIconRight:  true,
+    iconRightGlyph: ArrowRight,
   },
   argTypes: { showIconRight: { control: false } },
 };
 
 export const WithBothIcons: Story = {
   args: {
-    variant: 'Primary',
-    label: 'Continue',
-    showIconLeft: true,
-    iconLeftGlyph: IconArrowLeft,
-    showIconRight: true,
-    iconRightGlyph: IconArrowRight,
+    variant:        'Primary',
+    label:          'Continue',
+    showIconLeft:   true,
+    iconLeftGlyph:  ArrowLeft,
+    showIconRight:  true,
+    iconRightGlyph: ArrowRight,
   },
   argTypes: {
     showIconLeft:  { control: false },
@@ -150,9 +112,8 @@ export const FullWidth: Story = {
   ],
 };
 
-// ── Gallery story ─────────────────────────────────────────────────────────────
-// Shows all main combinations on one screen. Uses [data-force-*] attrs + the
-// CSS in gallery.css to simulate :hover / :active / :focus-visible states.
+// ── Gallery ───────────────────────────────────────────────────────────────────
+// Fullscreen: all combinations on one screen for video recording.
 
 const VARIANTS = ['Primary', 'Secondary', 'Tertiary'] as const;
 
@@ -163,37 +124,36 @@ const STATES = [
   { label: 'Focus',    force: 'focus'   as const },
   { label: 'Disabled', disabled: true   },
 ] satisfies Array<{
-  label: string;
-  force?: 'hover' | 'pressed' | 'focus';
+  label:    string;
+  force?:   'hover' | 'pressed' | 'focus';
   disabled?: boolean;
 }>;
 
 const ICON_COMBOS = [
-  { label: 'No icons'   },
-  { label: 'Left only',  showIconLeft:  true, iconLeftGlyph:  IconArrowLeft  },
-  { label: 'Right only', showIconRight: true, iconRightGlyph: IconArrowRight },
-  { label: 'Both',       showIconLeft:  true, iconLeftGlyph:  IconArrowLeft,
-                         showIconRight: true, iconRightGlyph: IconArrowRight },
-  { label: 'Star left',  showIconLeft:  true, iconLeftGlyph:  IconStar       },
+  { label: 'No icons' },
+  { label: 'Left only',  showIconLeft:  true, iconLeftGlyph:  ArrowLeft  },
+  { label: 'Right only', showIconRight: true, iconRightGlyph: ArrowRight },
+  { label: 'Both',       showIconLeft:  true, iconLeftGlyph:  ArrowLeft,
+                         showIconRight: true, iconRightGlyph: ArrowRight },
+  { label: 'Star left',  showIconLeft:  true, iconLeftGlyph:  Star       },
 ] satisfies Array<Record<string, unknown> & { label: string }>;
 
 export const Gallery: Story = {
   name: 'Gallery',
   parameters: {
-    layout: 'fullscreen',
+    layout:   'fullscreen',
     controls: { disable: true },
   },
   render: (_args) => {
-    // Build the flat list of cells for the variant × state matrix.
     const matrixItems = VARIANTS.flatMap((v) => [
       <div key={`${v}-lbl`} className="sb-gallery__row-label">{v}</div>,
       ...STATES.map(({ label, force, disabled }) => (
         <div
           key={`${v}-${label}`}
           className="sb-gallery__cell"
-          data-force-hover={force === 'hover'   ? '' : undefined}
-          data-force-pressed={force === 'pressed' ? '' : undefined}
-          data-force-focus={force === 'focus'   ? '' : undefined}
+          data-force-hover={   force === 'hover'   ? '' : undefined}
+          data-force-pressed={ force === 'pressed' ? '' : undefined}
+          data-force-focus={   force === 'focus'   ? '' : undefined}
         >
           <Button variant={v} label={v} disabled={disabled} />
         </div>
@@ -207,12 +167,10 @@ export const Gallery: Story = {
         <div className="sb-gallery__section">
           <div className="sb-gallery__section-title">States × Variants</div>
           <div className="sb-gallery__matrix">
-            {/* Column headers */}
             <div />
             {STATES.map(({ label }) => (
               <div key={label} className="sb-gallery__col-label">{label}</div>
             ))}
-            {/* Rows */}
             {matrixItems}
           </div>
         </div>
