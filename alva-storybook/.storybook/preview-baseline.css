@@ -1,3 +1,15 @@
+/*
+ * DS font loading — Inter (body) + Poppins (heading)
+ * Only the weights used by the ALVA DS are imported:
+ *   400 (regular)   → --primitives-typography-font-weight-regular
+ *   600 (semibold)  → --primitives-typography-font-weight-semibold
+ * Latin subset only to minimise load time in the Storybook dev server.
+ */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-600.css";
+
 /* ── Storybook canvas baseline — ALVA semantic tokens ── */
 /*
  * Light-mode fallbacks (#fff / #1a1a1a) match --primitives-color-white /
@@ -8,6 +20,6 @@ html,
 body {
   background: var(--semantic-surface-neutral-page-default, #ffffff);
   color:       var(--semantic-text-neutral-body-default, #1a1a1a);
-  font-family: var(--primitives-typography-font-family-body, system-ui, sans-serif);
+  font-family: var(--primitives-typography-font-family-body, "Inter", system-ui, sans-serif);
   transition:  background 200ms ease, color 200ms ease;
 }
