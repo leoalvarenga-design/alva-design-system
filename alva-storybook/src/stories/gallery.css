@@ -1,0 +1,142 @@
+/*
+ * Storybook gallery — Button state-forcing + layout
+ * ────────────────────────────────────────────────────────────────────────────
+ * Mirrors the same CSS-variable overrides that button.css applies under
+ * :hover / :active / :focus-visible, but triggered by [data-force-*]
+ * boolean attributes on a wrapper element instead of real interaction.
+ *
+ * Tokens are already loaded by .storybook/preview.ts (alva-ui/src/tokens/alva.css).
+ * ────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ── Button: Primary ─────────────────────────────────────────────────────── */
+
+[data-force-hover] .alva-button[data-variant="Primary"]:not(:disabled) {
+  --alva-btn-bg: var(--semantic-surface-action-primary-hover);
+}
+
+[data-force-pressed] .alva-button[data-variant="Primary"]:not(:disabled) {
+  --alva-btn-bg: var(--semantic-surface-action-primary-pressed);
+}
+
+[data-force-focus] .alva-button[data-variant="Primary"]:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-focus);
+}
+
+/* ── Button: Secondary ───────────────────────────────────────────────────── */
+
+[data-force-hover] .alva-button[data-variant="Secondary"]:not(:disabled) {
+  --alva-btn-bg:         var(--semantic-surface-action-primary-hover);
+  --alva-btn-text-color: var(--semantic-text-on-surface-action-default);
+}
+
+[data-force-pressed] .alva-button[data-variant="Secondary"]:not(:disabled) {
+  --alva-btn-bg:         var(--semantic-surface-action-primary-pressed);
+  --alva-btn-text-color: var(--semantic-text-on-surface-action-default);
+}
+
+[data-force-focus] .alva-button[data-variant="Secondary"]:not(:disabled) {
+  --alva-btn-border-color: var(--semantic-border-action-primary-focus);
+}
+
+/* ── Button: Tertiary ────────────────────────────────────────────────────── */
+
+[data-force-hover] .alva-button[data-variant="Tertiary"]:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-hover);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-action-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-hover);
+}
+
+[data-force-pressed] .alva-button[data-variant="Tertiary"]:not(:disabled) {
+  --alva-btn-bg:           var(--semantic-surface-action-primary-pressed);
+  --alva-btn-text-color:   var(--semantic-text-on-surface-action-default);
+  --alva-btn-border-color: var(--semantic-border-action-primary-pressed);
+}
+
+[data-force-focus] .alva-button[data-variant="Tertiary"]:not(:disabled) {
+  --alva-btn-border-color: var(--semantic-border-neutral-primary-focus);
+}
+
+/* ── Gallery layout ──────────────────────────────────────────────────────── */
+
+.sb-gallery {
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  background: var(--semantic-surface-neutral-page-default, #fff);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.sb-gallery__section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sb-gallery__section-title {
+  font-family: var(--primitives-typography-font-family-body, system-ui);
+  font-size:   var(--responsive-typography-fontsize-body-sm, 12px);
+  font-weight: var(--primitives-typography-font-weight-semibold, 600);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--semantic-text-neutral-disabled-default, #888);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--semantic-border-neutral-primary-default, #e0e0e0);
+}
+
+/* ── State matrix (variants × states) ───────────────────────────────────── */
+
+.sb-gallery__matrix {
+  display: grid;
+  /* [row-label] [Default] [Hover] [Pressed] [Focus] [Disabled] */
+  grid-template-columns: 80px repeat(5, minmax(110px, auto));
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: start;
+}
+
+.sb-gallery__col-label {
+  font-size:   var(--responsive-typography-fontsize-body-sm, 12px);
+  font-weight: var(--primitives-typography-font-weight-semibold, 600);
+  color: var(--semantic-text-neutral-disabled-default, #888);
+  text-align: center;
+}
+
+.sb-gallery__row-label {
+  font-size:  var(--responsive-typography-fontsize-body-sm, 12px);
+  color: var(--semantic-text-neutral-disabled-default, #888);
+  white-space: nowrap;
+}
+
+.sb-gallery__cell {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Icon / full-width rows ──────────────────────────────────────────────── */
+
+.sb-gallery__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+.sb-gallery__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sb-gallery__item-label {
+  font-size: var(--responsive-typography-fontsize-body-sm, 12px);
+  color: var(--semantic-text-neutral-disabled-default, #888);
+}
+
+.sb-gallery__fullwidth-container {
+  width: 280px;
+}
