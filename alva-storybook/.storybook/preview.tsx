@@ -7,60 +7,68 @@ import "alva-ui/src/input/input.css";
 import "alva-ui/src/card/card.css";
 import "./preview-baseline.css";
 
-import { useState, useEffect } from 'react';
-import type { Preview } from '@storybook/react-vite';
+import { useEffect } from 'react';
+import type { Preview, Decorator } from '@storybook/react';
 
 /*
- * ThemeToggle — fixed button that flips data-theme on the canvas <html>.
- * Drives all semantic tokens between light / dark without any DS code change.
+ * Theme decorator — reads `globals.theme` set by the toolbar control and applies
+ * data-theme on the preview iframe's <html> element.
+ *
+ * "system" removes the attribute → alva.css @media(prefers-color-scheme:dark) takes over.
+ * "light" / "dark" → explicit override regardless of system preference.
+ *
+ * This decorator runs on every story render, so theme persists as the user
+ * navigates the sidebar (unlike a per-story useState, which resets on navigation).
  */
-function ThemeToggle() {
-  const [dark, setDark] = useState(false);
+const withTheme: Decorator = (Story, context) => {
+  const theme = (context.globals as Record<string, string>)['theme'] ?? 'light';
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-  }, [dark]);
+    const html = document.documentElement;
+    if (theme === 'system') {
+      html.removeAttribute('data-theme');
+    } else {
+      html.setAttribute('data-theme', theme);
+    }
+  }, [theme]);
 
-  return (
-    <button
-      onClick={() => setDark((d) => !d)}
-      aria-label="Toggle light/dark theme"
-      style={{
-        position:   'fixed',
-        top:        12,
-        right:      12,
-        zIndex:     9999,
-        padding:    '4px 12px',
-        background: 'var(--semantic-surface-neutral-primary-default, #fff)',
-        border:     '1.5px solid var(--semantic-border-neutral-primary-default, #ccc)',
-        borderRadius: 6,
-        color:      'var(--semantic-text-neutral-body-default, #333)',
-        cursor:     'pointer',
-        fontSize:   '11px',
-        fontWeight: 600,
-        fontFamily: 'var(--primitives-typography-font-family-body, system-ui)',
-        letterSpacing: '0.04em',
-        display:    'inline-flex',
-        alignItems: 'center',
-        gap:        5,
-        transition: 'background 200ms ease, color 200ms ease, border-color 200ms ease',
-      }}
-    >
-      {dark ? '☀️' : '🌙'}&nbsp;{dark ? 'Light' : 'Dark'}
-    </button>
-  );
-}
+  return <Story />;
+};
 
 const preview: Preview = {
-  decorators: [
-    (Story) => (
-      <>
-        <ThemeToggle />
-        <Story />
-      </>
-    ),
-  ],
+  // ── Toolbar theme control ─────────────────────────────────────────────────
+  globalTypes: {
+    theme: {
+      description: 'ALVA Design System color theme',
+      toolbar: {
+        title:        'Theme',
+        icon:         'paintbrush',
+        dynamicTitle: true,
+        items: [
+          { value: 'light',  title: '☀️  Light',  icon: 'sun'     },
+          { value: 'dark',   title: '🌙  Dark',   icon: 'moon'    },
+          { value: 'system', title: '⚙️  System', icon: 'browser' },
+        ],
+      },
+    },
+  },
+
+  initialGlobals: {
+    theme: 'light',
+  },
+
+  // ── Global decorators ─────────────────────────────────────────────────────
+  decorators: [withTheme],
+
+  // ── Global parameters ─────────────────────────────────────────────────────
   parameters: {
+    /*
+     * 'padded' gives every story consistent breathing room (24px padding from
+     * the Storybook canvas edge).  Gallery stories override this individually
+     * with layout: 'fullscreen'.
+     */
+    layout: 'padded',
+
     controls: {
       matchers: {
         color: /(background|color)$/i,

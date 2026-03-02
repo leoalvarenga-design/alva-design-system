@@ -1,8 +1,13 @@
 /* ── Storybook canvas baseline — ALVA semantic tokens ── */
+/*
+ * Light-mode fallbacks (#fff / #1a1a1a) match --primitives-color-white /
+ * --primitives-color-grey-600 so the canvas looks correct before the first
+ * useEffect tick or when tokens fail to load.
+ */
 html,
 body {
-  background: var(--semantic-surface-neutral-page-default, #f4efe8);
+  background: var(--semantic-surface-neutral-page-default, #ffffff);
   color:       var(--semantic-text-neutral-body-default, #1a1a1a);
-  font-family: var(--primitives-typography-font-family-body, system-ui);
+  font-family: var(--primitives-typography-font-family-body, system-ui, sans-serif);
   transition:  background 200ms ease, color 200ms ease;
 }
