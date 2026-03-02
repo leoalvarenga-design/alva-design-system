@@ -39,6 +39,11 @@ const meta: Meta<typeof Button> = {
     variant: 'Primary',
     label: 'Button',
   },
+  argTypes: {
+    // ReactNode slots — not serialisable; disable the Controls panel for them.
+    iconLeftGlyph:  { control: false },
+    iconRightGlyph: { control: false },
+  },
 };
 
 export default meta;
@@ -67,6 +72,10 @@ export const WithIconLeft: Story = {
     showIconLeft: true,
     iconLeftGlyph: IconArrowLeft,
   },
+  argTypes: {
+    // Glyph is fixed for this story; hide the boolean toggle to avoid confusion.
+    showIconLeft: { control: false },
+  },
 };
 
 export const WithIconRight: Story = {
@@ -75,6 +84,9 @@ export const WithIconRight: Story = {
     label: 'Next',
     showIconRight: true,
     iconRightGlyph: IconArrowRight,
+  },
+  argTypes: {
+    showIconRight: { control: false },
   },
 };
 
@@ -86,6 +98,10 @@ export const WithBothIcons: Story = {
     iconLeftGlyph: IconArrowLeft,
     showIconRight: true,
     iconRightGlyph: IconArrowRight,
+  },
+  argTypes: {
+    showIconLeft:  { control: false },
+    showIconRight: { control: false },
   },
 };
 
