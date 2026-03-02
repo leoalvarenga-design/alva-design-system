@@ -241,7 +241,7 @@
     /* ── Text ── */
     --semantic-text-neutral-heading-default:       var(--primitives-color-grey-100);
     --semantic-text-neutral-body-default:          var(--primitives-color-grey-200);
-    --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-600);
+    --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-400); /* was grey-600 — invisible on grey-600 bg */
     --semantic-text-action-primary-default:        var(--primitives-color-pink-400);
     --semantic-text-action-primary-hover:          var(--primitives-color-pink-300);
     --semantic-text-action-primary-pressed:        var(--primitives-color-pink-500);
@@ -302,7 +302,7 @@
   /* ── Text ── */
   --semantic-text-neutral-heading-default:       var(--primitives-color-grey-100);
   --semantic-text-neutral-body-default:          var(--primitives-color-grey-200);
-  --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-600);
+  --semantic-text-neutral-disabled-default:      var(--primitives-color-grey-400); /* was grey-600 — invisible on grey-600 bg */
   --semantic-text-action-primary-default:        var(--primitives-color-pink-400);
   --semantic-text-action-primary-hover:          var(--primitives-color-pink-300);
   --semantic-text-action-primary-pressed:        var(--primitives-color-pink-500);
